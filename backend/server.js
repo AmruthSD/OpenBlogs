@@ -4,7 +4,7 @@ import mysql from 'mysql2/promise'
 import cors from 'cors'
 const app = express()
 const port = process.env.PORT || 5000
-import { createNewUser , loginUser , authmiddleware } from './controllers/userControllers.js'
+import { signUpUser , loginUser , authmiddleware } from './controllers/userControllers.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -25,17 +25,18 @@ const connection = await mysql.createConnection({
     password: process.env.MYSQL_PASSWORD
 })
 
-app.post('/users/createnewuser', async (req, res) => {
-    await createNewUser(connection, req, res)
+/************** USER ROUTES *****************/ 
+app.post('/users/signup', async (req, res) => {
+    await signUpUser(connection, req, res)
 })
-
 app.post('/users/login', async (req, res) => {
     await loginUser(connection, req, res)
 })
-
 app.get('/users/authmiddleware', authmiddleware, (req, res) => {
     res.status(200).json({message : 'Authorized'})
 })
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

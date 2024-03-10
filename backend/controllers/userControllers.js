@@ -2,7 +2,8 @@ import { createNewUserSQL , getUserSQL } from "../sql/queries/user.js";
 import jwt from 'jsonwebtoken'
 import 'dotenv/config'
 
-export async function createNewUser(connection , req , res) {
+// POST /users/signup
+export async function signUpUser(connection , req , res) {
     const { username , password } = req.body
     try{
         const [rows , fields] = await getUserSQL(connection, username)
@@ -17,13 +18,15 @@ export async function createNewUser(connection , req , res) {
             username : userinfo.username
         }
         const token = jwt.sign(tokenpayload , process.env.JWT_SECRET , {expiresIn : '10d'})
-        res.status(200).json({authtoken : token , userdata : tokenpayload})
+        res.status(200).json({authtoken : token, id : userinfo.id , username : userinfo.username})
     } catch(err) {
         console.log(err);
         res.status(500).json({message : 'Internal Server Error'})
     }
 }
 
+
+// POST /users/login
 export async function loginUser(connection , req , res) {
     const { username , password } = req.body
     try{
@@ -37,7 +40,7 @@ export async function loginUser(connection , req , res) {
             username : userinfo.username
         }
         const token = jwt.sign(tokenpayload , process.env.JWT_SECRET , {expiresIn : '10d'})
-        res.status(200).json({authtoken : token})
+        res.status(200).json({authtoken : token, id : userinfo.id , username : userinfo.username})
     } catch(err) {
         console.log(err);
         res.status(500).json({message : 'Internal Server Error'})
