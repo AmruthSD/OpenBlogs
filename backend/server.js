@@ -7,6 +7,7 @@ const port = process.env.PORT || 5000
 import { signUpUser , loginUser , authmiddleware } from './controllers/userControllers.js'
 import { userBlogs,indBlog } from './controllers/dashboardControllers.js'
 import { createNewBlog  } from './controllers/blogsController.js'
+import { allTags,addOneTag } from './controllers/tagControllers.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -43,6 +44,15 @@ app.post('/dashboard',authmiddleware, async (req,res)=>{
 app.post('/dashboard/blog',authmiddleware, async (req,res)=>{
     await indBlog(connection,req,res)
 })
+
+/*tags*/
+app.post('/alltags', async (req,res)=>{
+    await allTags(connection,req,res)
+})
+app.post('/addtag', async (req,res)=>{
+    await addOneTag(connection,req,res)
+})
+
 //pending
 app.post('/blog/newblog',authmiddleware, async (req, res) => {
     await createNewBlog(connection, req, res)

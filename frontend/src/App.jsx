@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import FullScreenSpinner from "./components/FullScreenSpinner";
 import useLoadStateStore from "./zustand/loadStateStore";
 import AddBlog from "./pages/AddBlog";
+import Tags from "./pages/Tags";
 
 export default function App() {
   const isLoading = useLoadStateStore((state) => state.isLoading);
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/blog/newblog" element={<ProtectedRoute><AddBlog /></ProtectedRoute>} />
+        <Route path="/Tags" element={<Tags/>} />
       </Routes>
     </>
   );
