@@ -5,6 +5,7 @@ import cors from 'cors'
 const app = express()
 const port = process.env.PORT || 5000
 import { signUpUser , loginUser , authmiddleware } from './controllers/userControllers.js'
+import { createNewBlog  } from './controllers/blogsController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -35,7 +36,9 @@ app.post('/users/login', async (req, res) => {
 app.get('/users/authmiddleware', authmiddleware, (req, res) => {
     res.status(200).json({message : 'Authorized'})
 })
-
+app.post('/blog/newblog', async (req, res) => {
+    await createNewBlog(connection, req, res)
+})
 
 
 app.listen(port, () => {
