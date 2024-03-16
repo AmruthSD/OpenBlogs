@@ -6,7 +6,7 @@ const connection = await mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'test',
-    password: 'ICode@247'
+    password: '1234'
 })
 
 await connection.query(`

@@ -5,6 +5,7 @@ import cors from 'cors'
 const app = express()
 const port = process.env.PORT || 5000
 import { signUpUser , loginUser , authmiddleware } from './controllers/userControllers.js'
+import { userBlogs,indBlog } from './controllers/dashboardControllers.js'
 import { createNewBlog  } from './controllers/blogsController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -18,7 +19,6 @@ app.use(cors(
         credentials: true
     }
 ));
-
 const connection = await mysql.createConnection({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
@@ -36,7 +36,15 @@ app.post('/users/login', async (req, res) => {
 app.get('/users/authmiddleware', authmiddleware, (req, res) => {
     res.status(200).json({message : 'Authorized'})
 })
-app.post('/blog/newblog', async (req, res) => {
+/*Dashboard*/
+app.post('/dashboard',authmiddleware, async (req,res)=>{
+    await userBlogs(connection,req,res)
+})
+app.post('/dashboard/blog',authmiddleware, async (req,res)=>{
+    await indBlog(connection,req,res)
+})
+//pending
+app.post('/blog/newblog',authmiddleware, async (req, res) => {
     await createNewBlog(connection, req, res)
 })
 
