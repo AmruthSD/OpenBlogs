@@ -1,7 +1,7 @@
 import useAuthStore from "../../zustand/authStore";
-import { redirect , Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-export default function ProtectedRoute({ children}) {
+export default function ProtectedRoute({ children }) {
   const isAuth = useAuthStore((state) => state.isAuth);
-  return  isAuth ? children : <Navigate to="/login" />;
+  return isAuth ? children : <Navigate to="/login" />;
 }

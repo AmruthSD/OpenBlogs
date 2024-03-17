@@ -37,15 +37,15 @@ app.post('/users/login', async (req, res) => {
 app.get('/users/authmiddleware', authmiddleware, (req, res) => {
     res.status(200).json({message : 'Authorized'})
 })
-/*Dashboard*/
-app.post('/dashboard',authmiddleware, async (req,res)=>{
+/************** Dashboard *****************/
+app.post('/dashboard', async (req,res)=>{
     await userBlogs(connection,req,res)
 })
-app.post('/dashboard/blog',authmiddleware, async (req,res)=>{
+app.post('/dashboard/blog', async (req,res)=>{
     await indBlog(connection,req,res)
 })
 
-/*tags*/
+/************** tags *********************/
 app.post('/alltags', async (req,res)=>{
     await allTags(connection,req,res)
 })
@@ -53,7 +53,7 @@ app.post('/addtag', async (req,res)=>{
     await addOneTag(connection,req,res)
 })
 
-//pending
+/********************* Blogs **********************/
 app.post('/blog/newblog',authmiddleware, async (req, res) => {
     await createNewBlog(connection, req, res)
 })

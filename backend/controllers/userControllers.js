@@ -18,7 +18,7 @@ export async function signUpUser(connection , req , res) {
             username : userinfo.username
         }
         const token = jwt.sign(tokenpayload , process.env.JWT_SECRET , {expiresIn : '10d'})
-        res.status(200).json({authtoken : token, id : userinfo.id , username : userinfo.username})
+        res.status(200).json({token : token, id : userinfo.id , username : userinfo.username})
     } catch(err) {
         console.log(err);
         res.status(500).json({message : 'Internal Server Error'})
@@ -40,7 +40,7 @@ export async function loginUser(connection , req , res) {
             username : userinfo.username
         }
         const token = jwt.sign(tokenpayload , process.env.JWT_SECRET , {expiresIn : '10d'})
-        res.status(200).json({authtoken : token, id : userinfo.id , username : userinfo.username})
+        res.status(200).json({token:token, id : userinfo.id , username : userinfo.username})
     } catch(err) {
         console.log(err);
         res.status(500).json({message : 'Internal Server Error'})

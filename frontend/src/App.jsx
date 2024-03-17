@@ -15,16 +15,6 @@ import Tags from "./pages/Tags";
 
 export default function App() {
   const isLoading = useLoadStateStore((state) => state.isLoading);
-  useEffect(() => {
-    const token = Cookies.get("auth");
-    if (token) {
-      console.log(token);
-      const { id, username, authtoken } = JSON.parse(token);
-      useAuthStore.getState().setIsAuth(true);
-      useAuthStore.getState().setAuthData(id, username, authtoken);
-      useAuthStore.getState().setIsLoadingCookie(false);
-    }
-  }, []);
 
   return (
     <>
