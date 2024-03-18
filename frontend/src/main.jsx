@@ -9,7 +9,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <NextUIProvider>
       <BrowserRouter>
-        <main className="">
+        <main className=" bg-slate-100">
           <App />
         </main>
       </BrowserRouter>
