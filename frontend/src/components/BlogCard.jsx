@@ -16,7 +16,7 @@ export default function BlogCard({ blog }) {
   return (
     <div className=" hover:-translate-y-2 duration-100 ">
       <Card className=" p-4 mx-4">
-        <CardHeader className="text-2xl ">{blog.title}</CardHeader>
+        <CardHeader className="text-xl ">{blog.title}</CardHeader>
         <CardBody className=" text-gray-600">{trimmedContent}...</CardBody>
         <CardFooter className="flex flex-row gap-2 justify-between">
           <div className="flex flex-row gap-2">
