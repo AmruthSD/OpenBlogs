@@ -6,7 +6,7 @@ const app = express()
 const port = process.env.PORT || 5000
 import { signUpUser , loginUser , authmiddleware } from './controllers/userControllers.js'
 import { userBlogs,indBlog } from './controllers/dashboardControllers.js'
-import { createNewBlog  } from './controllers/blogsController.js'
+import { createNewBlog ,getAllBlogs  } from './controllers/blogsController.js'
 import { allTags,addOneTag } from './controllers/tagControllers.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -57,7 +57,9 @@ app.post('/addtag', async (req,res)=>{
 app.post('/blog/newblog',authmiddleware, async (req, res) => {
     await createNewBlog(connection, req, res)
 })
-
+app.get('/blog/allblogs', async (req, res) => {
+    await getAllBlogs(connection, req, res)
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
