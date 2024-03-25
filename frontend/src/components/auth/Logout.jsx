@@ -2,7 +2,7 @@ import React from "react";
 import { redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 import useAuthStore from "../../zustand/authStore";
-import { Button } from "@nextui-org/react";
+import { Button } from "../ui/button";
 
 export default function Logout() {
   const setIsAuth = useAuthStore((state) => state.setIsAuth);
