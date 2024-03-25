@@ -20,9 +20,9 @@ import {
 export default function Component() {
   const isAuth = useAuthStore((state) => state.isAuth);
   return (
-    <nav className="flex items-center gap-4 text-sm font-medium py-3">
+    <nav className="flex items-center gap-4 text-sm font-medium py-3 px-2">
       <div className="flex items-center gap-2">
-        <Link className="flex items-center gap-2 font-bold" href="#">
+        <Link className="flex items-center gap-2 font-bold" to="/">
           <Book className="h-8 w-8" />
           <span className=" text-xl">OpenBlogs</span>
         </Link>
