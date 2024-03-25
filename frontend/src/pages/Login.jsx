@@ -1,9 +1,16 @@
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/tIfz8vvTn5S
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import useAuthStore from "../zustand/authStore";
-import {Input} from "@nextui-org/react";
-import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import useLoadStateStore from "../zustand/loadStateStore";
 
@@ -35,23 +42,32 @@ export default function Login() {
   }
 
   return (
-    <div className=" w-80 mx-auto mt-36 flex flex-col gap-3 place-items-center">
-      <h1 className=" text-4xl my-4">Login</h1>
-      <Input
-        type="text"
-        label="Username"
-        value={username}
-        variant="bordered"
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <Input
-        type="password"
-        label="Password"
-        value={password}
-        variant="bordered"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button color="primary" onClick={handleLogin}>Login</Button>
+    <div className="flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div className="space-y-8">
+      <div className="space-y-2">
+        <h1 className="text-3xl font-bold">Login</h1>
+        <p className="text-gray-500 dark:text-gray-400">Enter your username below to login to your account</p>
+      </div>
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="username">username</Label>
+          <Input onChange={(e) => setUsername(e.target.value)}  placeholder="username" required type="text" />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="password">Password</Label>
+          <Input onChange={(e) => setPassword(e.target.value)}  id="password" required type="password" />
+        </div>
+        <Button onClick={handleLogin} className="w-full">Login</Button>
+      </div>
+      <div className="text-center text-sm">
+        Don't have an account? 
+        <Link className="underline" to="/signup">
+          Sign up
+        </Link>
+      </div>
     </div>
+  </div>
   );
 }
+
+
