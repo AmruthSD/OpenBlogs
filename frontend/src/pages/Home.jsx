@@ -1,5 +1,6 @@
 import useAuthStore from "../zustand/authStore";
 import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import axios from "axios";
 // import BlogCard from "../components/BlogCard";
 import useLoadStateStore from "../zustand/loadStateStore";
@@ -24,7 +25,7 @@ export default function Home() {
 
   return (
     <>
-
+      <Button>Click me</Button>
     </>
   //   <div className="flex flex-row flex-wrap mt-6">
   //     <div className=" max-w-96 m-4">
