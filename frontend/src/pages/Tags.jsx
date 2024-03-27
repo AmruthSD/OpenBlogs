@@ -108,7 +108,10 @@ export default function Tags(){
         {[...addingtags].map((tag) => {
             console.log(typeof(tag), tag.id);
             return (
-                <h1 key={tag.id}>{tag.tagname}</h1>
+                <div>
+                    <h1 key={tag.id}>{tag.tagname}</h1>
+                    <button onClick={()=>handleAdding(tag)}>Add</button>
+                </div>
             );
         })}
         </div>
