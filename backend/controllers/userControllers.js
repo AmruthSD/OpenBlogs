@@ -1,4 +1,4 @@
-import { createNewUserSQL , getUserSQL } from "../sql/queries/user.js";
+import { createNewUserSQL , getUserSQL , getUserDetailsSQL} from "../sql/queries/user.js";
 import jwt from 'jsonwebtoken'
 import 'dotenv/config'
 
@@ -47,6 +47,19 @@ export async function loginUser(connection , req , res) {
     }
 }
 
+// GET /users/details
+export async function getUserDetails(connection , req , res) {
+    try{
+        const userId = req.query.userId
+        const [rows,fields] = await getUserDetailsSQL(connection, userId)
+        res.status(200).json({userdetails : rows})
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({message : 'Internal Server Error'})
+    }
+}
+
+// Middleware to check if user is authenticated
 export async function authmiddleware(req , res , next) {
     const token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : null
     if(!token) {

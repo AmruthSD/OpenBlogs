@@ -4,9 +4,9 @@ import mysql from 'mysql2/promise'
 import cors from 'cors'
 const app = express()
 const port = process.env.PORT || 5000
-import { signUpUser , loginUser , authmiddleware } from './controllers/userControllers.js'
+import { signUpUser , loginUser ,getUserDetails, authmiddleware } from './controllers/userControllers.js'
 import { userBlogs,indBlog } from './controllers/dashboardControllers.js'
-import { createNewBlog ,getAllBlogs  } from './controllers/blogsController.js'
+import { createNewBlog ,getAllBlogs , getWritersBlogs } from './controllers/blogsController.js'
 import { allTags,addOneTag } from './controllers/tagControllers.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -34,12 +34,19 @@ app.post('/users/login', async (req, res) => {
 app.get('/users/authmiddleware', authmiddleware, (req, res) => {
     res.status(200).json({message : 'Authorized'})
 })
+app.get('/users/details', async (req, res) => {
+    await getUserDetails(connection,req,res)
+})
 /************** Dashboard *****************/
 app.post('/dashboard', async (req,res)=>{
     await userBlogs(connection,req,res)
 })
 app.post('/dashboard/blog', async (req,res)=>{
     await indBlog(connection,req,res)
+})
+/**************** Writers  *********************/
+app.get('/writers/blogs', async (req,res)=>{
+    await getWritersBlogs(connection,req,res)
 })
 
 /************** tags *********************/

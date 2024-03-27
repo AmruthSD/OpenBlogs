@@ -1,6 +1,6 @@
 export async function getBlogs(connection, user_id) {
     return await connection.query(
-        `SELECT id,title,isPublic,publishedAt FROM blogs 
+        `SELECT id,title,isPublic,publishedAt,SUBSTRING(content,1,100) as content FROM blogs 
         WHERE user_id = '${user_id}' order by publishedAt desc`
     )
 }

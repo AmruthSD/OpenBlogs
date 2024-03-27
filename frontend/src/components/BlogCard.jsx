@@ -25,7 +25,7 @@ username
 export default function BlogCard({ blog }) {
   return (
     <Card className="flex flex-col min-h-[300px]">
-      <Link className="flex-1 grid items-start p-6 gap-2 text-left" href="#">
+      <Link className="flex-1 grid items-start p-6 gap-2 text-left" to={`/blog/${blog.id}`}>
         <div className="space-y-1.5">
           <h2 className="text-2xl font-bold line-clamp-2">{blog.title}</h2>
           <p className="text-gray-500 dark:text-gray-400">
@@ -38,7 +38,7 @@ export default function BlogCard({ blog }) {
         <div className="grid gap-2 text-sm">
           <p className="text-gray-500 dark:text-gray-400">
             By 
-            <Link href="#" className=" text-black">{' '+blog.username}</Link>
+            <Link to={`/writers/${blog.user_id}`} className=" text-black">{' '+blog.username}</Link>
           </p>
           {/* HARDCODED TAGS */}
           <div className="flex flex-wrap gap-2">
