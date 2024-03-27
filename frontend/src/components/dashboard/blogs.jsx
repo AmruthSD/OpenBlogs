@@ -2,8 +2,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import useAuthStore from "../../zustand/authStore";
 import ContentModal from "./modalcontent";
-import Content from "./blog";
-export function Blogs() {
+import DashBlogCard from "./DashBlogCard";
+import Content from "../../pages/BlogPage";
+export function Blogs({ setBlogCount}) {
   const authData = useAuthStore((state) => state.authdata);
   const [loading, setLoading] = useState(false);
   const [rows, setRows] = useState([]);
@@ -34,6 +35,7 @@ export function Blogs() {
         setRows(rows2);
       };
       await makeArray(rows1);
+      setBlogCount(rows1.length);
     };
     getBloggs();
     setLoading(false);
@@ -43,35 +45,73 @@ export function Blogs() {
   } else {
     return (
       <>
-        <h1>Your Blogs</h1>
-        <div className="flex flex-col">
-          {rows.map((blog) => {
-            return (
-              <div className="border-2 p-4">
-                <h1>Title :{blog["title"]}</h1>
-                <h1>Public :{blog["isPublic"]}</h1>
-                <h1>Date :{blog["publishedAt"]}</h1>
-                <button
-                  onClick={() => {
-                    setOpen(true);
-                    setBlogid(blog["id"]);
-                  }}
-                >
-                  open
-                </button>
-              </div>
-            );
-          })}
-        </div>
-        <ContentModal
-          open={open}
-          onClose={() => {
-            setOpen(false);
-          }}
-        >
-          <Content id={blogid} />
-        </ContentModal>
+        {rows.map((blog) => {
+          return (
+            <DashBlogCard key={blog.id} blog={blog} />
+          );
+        })}
       </>
     );
   }
 }
+
+/*
+
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/UeAV6wyi8TD
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+// import Link from "next/link"
+
+// export default function Component() {
+//   return (
+//     <div className="px-4 py-6 md:px-6 md:py-12 lg:py-16">
+//       <div className="space-y-2">
+//         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl xl:text-5xl">The Royal Jester</h1>
+//         <div className="flex items-center space-x-3 text-gray-500 dark:text-gray-400">
+//           <p className="font-semibold">23</p>
+//           <p className="font-semibold">Followers</p>
+//           <span className="h-6 w-px bg-gray-200 dark:bg-gray-800" />
+//           <p className="font-semibold">12</p>
+//           <p className="font-semibold">Blogs</p>
+//         </div>
+//       </div>
+//       <div className="border-b border-gray-200 dark:border-gray-800" />
+//       <div className="grid gap-6 pt-6 md:grid-cols-2">
+//         {/* blogs go here */}
+//         <div className="space-y-4">
+//           <div className="space-y-2">
+//             <h2 className="text-2xl font-bold tracking-tight">The Art of the Joke: A Masterclass in Mirth</h2>
+//             <p className="text-gray-500 dark:text-gray-400">Posted on August 24, 2023</p>
+//           </div>
+//           <p>
+//             Once upon a time, in a far-off land, there was a very lazy king who spent all day lounging on his throne.
+//             One day, his advisors came to him with a problem: the kingdom was running out of money.
+//           </p>
+//           <div className="mt-4">
+//             <Link className="text-base font-medium underline" href="#">
+//               Read full article
+//             </Link>
+//           </div>
+//         </div>
+//         <div className="space-y-4">
+//           <div className="space-y-2">
+//             <h2 className="text-2xl font-bold tracking-tight">The Jester's Journal: Musings of a Mirthful Minstrel</h2>
+//             <p className="text-gray-500 dark:text-gray-400">Posted on August 24, 2023</p>
+//           </div>
+//           <p>
+//             Jokester began sneaking into the castle in the middle of the night and leaving jokes all over the place:
+//             under the king's pillow, in his soup, even in the royal toilet. The king was furious, but he couldn't seem
+//             to stop Jokester.
+//           </p>
+//           <div className="mt-4">
+//             <Link className="text-base font-medium underline" href="#">
+//               Read full article
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }

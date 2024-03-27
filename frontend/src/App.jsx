@@ -9,6 +9,8 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
+import BlogPage from "./pages/BlogPage";
+import WriterDashboard from "./pages/WriterDashboard";
 // import Dashboard from "./pages/Dashboard";
 import FullScreenSpinner from "./components/FullScreenSpinner";
 import useLoadStateStore from "./zustand/loadStateStore";
@@ -27,7 +29,9 @@ export default function App() {
         <Route path="/blogs" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        /* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/blog/:id" element={<BlogPage />} /> 
+        <Route path="/writers/:writerId" element={<ProtectedRoute><WriterDashboard /></ProtectedRoute>} /> */
         {/* <Route path="/blog/newblog" element={<ProtectedRoute><AddBlog /></ProtectedRoute>} />  */}
         {/* <Route path="/Tags" element={<Tags/>} /> */}
       </Routes>
