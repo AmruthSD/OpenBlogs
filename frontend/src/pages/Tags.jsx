@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { searchTags } from "./SearchAllBlogs";
+import { useState,useEffect,useContext } from "react";
 export default function Tags(){
+    const { search123, setAddingTag } = useContext(searchTags);
     const [loading,setLoading] = useState(false)
     const [alltags,setAllTags] = useState([])
     const [search,setSearch] = useState("")
     const [resulttags,setResultTags] = useState([])
-    const [addingtags,setAddingTags] = useState(new Set())
+    const [addingtags,setAddingTags] = useState(new Set(search123))
     const [perfectMatch,setPerfectMatch] =useState(false)
     const handleChange = (event) => {
         const str = (event.target.value).trim();
@@ -113,7 +115,6 @@ export default function Tags(){
         <h1>Adding</h1>
         <div>
         {[...addingtags].map((tag) => {
-            console.log(typeof(tag), tag.id);
             return (
                 <div>
                     <h1 key={tag.id}>{tag.tagname}</h1>
@@ -122,7 +123,6 @@ export default function Tags(){
             );
         })}
         </div>
-
-
+        <button onClick={()=>{console.log(addingtags,"hi");setAddingTag(Array.from(addingtags));}}>Apply Tags</button>
     </>)
 }
