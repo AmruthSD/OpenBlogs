@@ -16,6 +16,13 @@ export default function Tags(){
             setSearch("")
         }
     };
+    function handleRemove(tag){
+        setLoading(true)
+        const newset = new Set(addingtags)
+        newset.delete(tag)
+        setAddingTags(newset)
+        setLoading(false)
+    };
     function handleAdding(id){
         setLoading(true)
         setAddingTags(previousState => new Set([...previousState, id]))
@@ -110,7 +117,7 @@ export default function Tags(){
             return (
                 <div>
                     <h1 key={tag.id}>{tag.tagname}</h1>
-                    <button onClick={()=>handleAdding(tag)}>Add</button>
+                    <button onClick={()=>handleRemove(tag)}>Remove</button>
                 </div>
             );
         })}
