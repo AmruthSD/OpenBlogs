@@ -8,6 +8,7 @@ export const searchTags = createContext();
 export default function SearchForBlogs(){
     const [loading,setLoading] = useState(false)
     const [addingtag,setAddingTag] = useState([])
+    const [sendingtags,setSendingTags] = useState([])
     const [search123,setSearch123] = useState([])
     const isAuth = useAuthStore((state) => state.isAuth);
     const authdata = useAuthStore((state) => state.authdata);
@@ -15,6 +16,7 @@ export default function SearchForBlogs(){
     const [blogs, setBlogs] = useState([]);
     useEffect(()=>{
         setSearch123(addingtag)
+        console.log(addingtag,"hello")
         setLoading(true)
         if(addingtag.length===0){
             getPublicBlogsWithNoTags(authdata , setIsLoading).then((blogs) => {
@@ -24,16 +26,14 @@ export default function SearchForBlogs(){
             });
         }
         else{
-            const tags1 = addingtag.map((tag)=>{
-                tag.id
-            })
-            getPublicBlogsWithTags(authdata,setIsLoading,tags1).then((blogs)=>{
+            console.log("hello",addingtag)
+            getPublicBlogsWithTags(authdata,setIsLoading,addingtag).then((blogs)=>{
                 setBlogs(blogs)
                 setLoading(false)
                 console.log(addingtag)
             })
         }
-    },[addingtag])
+    },[addingtag,sendingtags])
     if(loading){
         return(
             <>Loading</>
@@ -42,7 +42,6 @@ export default function SearchForBlogs(){
     return(<div className="flex">
         <div>
             <searchTags.Provider value={{search123,setAddingTag}}>
-                {console.log(addingtag)}
                 <Tags />
             </searchTags.Provider>
         </div>
@@ -60,8 +59,11 @@ async function getPublicBlogsWithNoTags(authdata,setLoading){
     console.log(response.rows);
     return response.data.rows;
 }
-async function getPublicBlogsWithTags(authdata,setLoading,tags1){
+async function getPublicBlogsWithTags(authdata,setLoading,addingtag){
+    const tags1 = await Promise.all(addingtag.map(async (tag) => {
+        return tag.id; 
+    }));
     const response = await axios.post("http://localhost:5000/withTags",{tags1});
-    console.log(response.rows);
+    console.log(response.data.rows,tags1);
     return response.data.rows;
 }

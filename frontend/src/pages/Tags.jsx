@@ -62,7 +62,6 @@ export default function Tags(){
     },[]);
     useEffect(()=>{
         setAddingTags(new Set(search123))
-        console.log(search123,addingtags)
     },[search123])
     useEffect(()=>{
         setLoading(true)

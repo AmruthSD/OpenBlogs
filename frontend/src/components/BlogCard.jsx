@@ -42,18 +42,16 @@ export default function BlogCard({ blog }) {
           </p>
           {/* HARDCODED TAGS */}
           <div className="flex flex-wrap gap-2">
-            <Link
+          {blog.tags.map((tag)=>{
+            return(
+              <Link
               className="inline-block rounded-lg bg-gray-100 px-2 py-1 text-sm dark:bg-gray-800"
               href="#"
             >
-              Science
-            </Link>
-            <Link
-              className="inline-block rounded-lg bg-gray-100 px-2 py-1 text-sm dark:bg-gray-800"
-              href="#"
-            >
-              Dreams
-            </Link>
+              {tag.tagname}
+            </Link>)
+          })}
+          
           </div>
         </div>
       </CardContent>
