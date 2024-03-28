@@ -12,7 +12,7 @@ export default function Tags(){
     const [perfectMatch,setPerfectMatch] =useState(false)
     const handleChange = (event) => {
         const str = (event.target.value).trim();
-        if(str.length>3){
+        if(str.length>=3){
             setSearch(str)
         }
         else{
