@@ -1,4 +1,4 @@
-import { createNewUserSQL, getUserSQL, getUserDetailsSQL, isfollowingSQL,getFollowerCountSQL, getFollowingCountSQL, followSQL, unfollowSQL } from "../sql/queries/user.js";
+import { createNewUserSQL, getUserSQL , getUserDetailsSQL, isfollowingSQL,getFollowerCountSQL, getFollowingCountSQL, followSQL, unfollowSQL } from "../sql/queries/user.js";
 import jwt from 'jsonwebtoken'
 import 'dotenv/config'
 
@@ -81,6 +81,30 @@ export async function getIsFollowing(connection , req , res) {
         const [rows,fields] = await isfollowingSQL(connection,userId,follower_id)
         const {isFollowing } = rows[0]
         res.status(200).json({isFollowing})
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal Server Error' })
+    }
+}
+
+// POST /users/follow
+export async function follow(connection , req , res) {
+    try {
+        const {userId , follower_id} = req.body
+        await followSQL(connection,userId,follower_id)
+        res.status(200).json({message : 'Followed'})
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal Server Error' })
+    }
+}
+
+// POST /users/unfollow
+export async function unfollow(connection , req , res) {
+    try {
+        const {userId , follower_id} = req.body
+        await unfollowSQL(connection,userId,follower_id)
+        res.status(200).json({message : 'Unfollowed'})
     } catch(err) {
         console.log(err);
         res.status(500).json({ message: 'Internal Server Error' })

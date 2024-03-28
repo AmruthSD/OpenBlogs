@@ -67,7 +67,7 @@ export async function unfollowSQL(connection , userId,  follower_id) {
 // check if follows or not
 export async function isfollowingSQL(connection , userId , follower_id) {
     return await connection.query(
-        `SELECT count(*) as isFollowing if FROM follows 
+        `SELECT count(*) as isFollowing FROM follows 
         WHERE user_id = ${userId} AND follower_id = ${follower_id};`
     )
 }
