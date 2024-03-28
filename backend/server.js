@@ -8,7 +8,7 @@ import { signUpUser , loginUser , authmiddleware } from './controllers/userContr
 import { userBlogs,indBlog } from './controllers/dashboardControllers.js'
 import { createNewBlog ,getAllBlogs  } from './controllers/blogsController.js'
 import { allTags,addOneTag } from './controllers/tagControllers.js'
-import { BlogsNoTags } from './controllers/searchBlogsControllers.js'
+import { BlogsNoTags,BlogsWithTags } from './controllers/searchBlogsControllers.js'
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -67,4 +67,7 @@ app.listen(port, () => {
 /****************Search*******************/
 app.post('/noTags', async (req,res)=>{
     await BlogsNoTags(connection,req,res)
+})
+app.post('/withTags', async (req,res)=>{
+    await BlogsWithTags(connection,req,res)
 })

@@ -2,6 +2,7 @@ import axios from "axios";
 import { searchTags } from "./SearchAllBlogs";
 import { useState,useEffect,useContext } from "react";
 export default function Tags(){
+    
     const { search123, setAddingTag } = useContext(searchTags);
     const [loading,setLoading] = useState(false)
     const [alltags,setAllTags] = useState([])
@@ -59,7 +60,10 @@ export default function Tags(){
         getBloggs()
         setLoading(false)
     },[]);
-
+    useEffect(()=>{
+        setAddingTags(new Set(search123))
+        console.log(search123,addingtags)
+    },[search123])
     useEffect(()=>{
         setLoading(true)
         setPerfectMatch(false)
