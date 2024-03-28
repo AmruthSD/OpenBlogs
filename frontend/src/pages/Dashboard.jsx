@@ -3,6 +3,7 @@ import { useState , useEffect } from "react";
 import { Blogs } from "../components/dashboard/blogs";
 import axios from "axios";
 import useLoadStateStore from "@/zustand/loadStateStore";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const isAuth = useAuthStore((state) => state.isAuth);
@@ -27,9 +28,15 @@ export default function Dashboard() {
   return (
     <div className="px-4 py-6 md:px-6 md:py-12 lg:py-16">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl xl:text-5xl">
-          {isAuth && `Welcome , ${authData.username}`}
-        </h1>
+      <div className="flex items-center space-x-10">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl xl:text-5xl">
+              {isAuth && `Welcome, ${authData.username}`}
+          </h1>
+          <Link className="border rounded-xl border-slate-950 px-4 py-2" to={`/newblog`}>
+            New Blog
+          </Link>
+        </div>
+
         <div className="flex items-center space-x-3 text-gray-500 dark:text-gray-400">
           <p className="font-semibold">{userdetails?.followers_count}</p>
           <p className="font-semibold">Followers</p>
