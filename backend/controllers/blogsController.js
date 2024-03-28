@@ -13,6 +13,7 @@ export async function createNewBlog(connection , req , res) {
     }
 }
 
+
 // GET /blog/allblogs
 export async function getAllBlogs(connection , req , res) {
     try{
