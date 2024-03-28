@@ -87,45 +87,42 @@ export default function Tags(){
         )
     }
     return(<>
-        <input type = "text" placeholder="Search tag..." onChange={handleChange}/>
-        {
-            perfectMatch? <h1>Cant create tag exists</h1>:search.length>3?<button onClick={createTag}>Create New Tag</button>:<h1>Tag too small</h1>
-        }
-        <h1>Results</h1>
-        {resulttags.map((tag)=>{
-            if(addingtags.has(tag)===false){
-                if(tag.tagname===search){
-                    return(
-                        <div>
-                            <h1>{tag.tagname} Perfect Match</h1>
-                            <button onClick={()=>handleAdding(tag)}>Add</button>
-                        </div>
-                    )
-                }
-                else{
-                    return(
-                        <div>
-                            <h1>{tag.tagname}</h1>
-                            <button onClick={()=>handleAdding(tag)}>Add</button>
-                        </div>
-                    )
-                }
-                
-            }
-        })}
-
-
-        <h1>Adding</h1>
-        <div>
-        {[...addingtags].map((tag) => {
-            return (
-                <div>
-                    <h1 key={tag.id}>{tag.tagname}</h1>
-                    <button onClick={()=>handleRemove(tag)}>Remove</button>
-                </div>
-            );
-        })}
+        <button onClick={() => { console.log(addingtags, "hi"); setAddingTag(Array.from(addingtags)); }} className="bg-slate-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4">Apply Tags</button>
+        
+        <div className="py-4">
+            <h1 className="text-lg font-semibold mt-4">Adding</h1>
+            {[...addingtags].map((tag) => {
+                return (
+                    <div key={tag.id} className="flex justify-between items-center border-b border-gray-300 py-2">
+                        <h1 className="text-m">{tag.tagname}</h1>
+                        <button onClick={() => handleRemove(tag)} className="bg-gray-300 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded text-m">-</button>
+                    </div>
+                );
+            })}
         </div>
-        <button onClick={()=>{console.log(addingtags,"hi");setAddingTag(Array.from(addingtags));}}>Apply Tags</button>
-    </>)
+        
+        <input type="text" placeholder="Search tag..." onChange={handleChange} className="border border-gray-300 rounded-md p-2 mb-4" />
+        {
+            perfectMatch ?
+            <h1 className="text-gray-500">Can't create tag, already exists</h1> :
+            search.length > 3 ?
+            <button onClick={createTag} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create New Tag</button> :
+            <h1 className="text-gray-500">Tag too small</h1>
+        }
+        <h1 className="text-lg font-semibold mt-4">Results</h1>
+        {resulttags.map((tag) => {
+            if (!addingtags.has(tag)) {
+                return (
+                    <div key={tag.id} className="flex justify-between items-center border-b border-gray-300 py-2">
+                        <h1 className="text-m">{tag.tagname}</h1>
+                        <button onClick={() => handleAdding(tag)} className="border-1px hover:bg-gray-700 text-black py-2 px-4 rounded text-m">+</button>
+                    </div>
+                )
+            }
+            return null;
+        })}
+    
+        
+    </>
+    )
 }

@@ -39,16 +39,24 @@ export default function SearchForBlogs(){
             <>Loading</>
         )
     }
-    return(<div className="flex">
-        <div>
+    return(<div className="flex p-8">
+        <div className="px-3 py-10">
             <searchTags.Provider value={{search123,setAddingTag}}>
                 <Tags />
             </searchTags.Provider>
         </div>
-        <div>
-            {addingtag.length===0?<h1>Recently Added</h1>:<div><h1>Search Based on Tags</h1>{addingtag.map((tag)=>{
-                return(<h1>{tag.tagname}</h1>)
-            })}</div>}
+        <div className="p-2">
+            <div className="pb-3">
+                {addingtag.length===0?<h1 className="text-5xl font-bold pb-10">Recently Added</h1>
+                :<div><h1 className="text-5xl font-bold pb-5">Search Based on Tags</h1>
+                <div className="flex flex-wrap gap-2">
+                    {addingtag.map((tag)=>{
+                        return(<h1 className="inline-block rounded-lg bg-gray-100 px-2 py-1 text-lg dark:bg-gray-800">{tag.tagname}</h1>)
+                    })}
+                </div>
+                </div>}
+            </div>
+            
             {blogs.map((blog)=>{return<BlogCard key={blog.id} blog={blog} />})}    
         </div>
     </div>)

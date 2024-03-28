@@ -46,7 +46,7 @@ export default function BlogCard({ blog }) {
             return(
               <Link
               className="inline-block rounded-lg bg-gray-100 px-2 py-1 text-sm dark:bg-gray-800"
-              href="#"
+              href=""
             >
               {tag.tagname}
             </Link>)
