@@ -8,7 +8,9 @@ import { signUpUser , loginUser ,getUserDetails, authmiddleware } from './contro
 import { userBlogs,indBlog } from './controllers/dashboardControllers.js'
 import { createNewBlog ,getAllBlogs , getWritersBlogs } from './controllers/blogsController.js'
 import { allTags,addOneTag } from './controllers/tagControllers.js'
+import { getFollowerAndFollowingCount, getIsFollowing } from './controllers/userControllers.js'
 import { BlogsNoTags,BlogsWithTags } from './controllers/searchBlogsControllers.js'
+import { Connection } from 'mysql2/typings/mysql/lib/Connection.js'
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -38,6 +40,12 @@ app.get('/users/authmiddleware', authmiddleware, (req, res) => {
 })
 app.get('/users/details', async (req, res) => {
     await getUserDetails(connection,req,res)
+})
+app.get('/users/socialstats', async (req,res) => {
+    await getFollowerAndFollowingCount(connection , req , res)
+})
+app.get('/users/isfollowing', async (req,res) => {
+    await getIsFollowing(Connection,req,res);
 })
 /************** Dashboard *****************/
 app.post('/dashboard', async (req,res)=>{
