@@ -8,6 +8,8 @@ import { signUpUser , loginUser ,getUserDetails, authmiddleware } from './contro
 import { userBlogs,indBlog } from './controllers/dashboardControllers.js'
 import { createNewBlog ,getAllBlogs , getWritersBlogs } from './controllers/blogsController.js'
 import { allTags,addOneTag } from './controllers/tagControllers.js'
+import { BlogsNoTags,BlogsWithTags } from './controllers/searchBlogsControllers.js'
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -67,4 +69,12 @@ app.get('/blog/allblogs', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
+})
+
+/****************Search*******************/
+app.post('/noTags', async (req,res)=>{
+    await BlogsNoTags(connection,req,res)
+})
+app.post('/withTags', async (req,res)=>{
+    await BlogsWithTags(connection,req,res)
 })

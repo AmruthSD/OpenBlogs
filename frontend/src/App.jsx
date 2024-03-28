@@ -15,8 +15,7 @@ import WriterDashboard from "./pages/WriterDashboard";
 import FullScreenSpinner from "./components/FullScreenSpinner";
 import useLoadStateStore from "./zustand/loadStateStore";
 // import AddBlog from "./pages/AddBlog";
-import Tags from "./pages/Tags";
-
+import SearchForBlogs from "./pages/SearchAllBlogs";
 export default function App() {
   const isLoading = useLoadStateStore((state) => state.isLoading);
 
@@ -33,7 +32,7 @@ export default function App() {
         <Route path="/blog/:id" element={<BlogPage />} /> 
         <Route path="/writers/:writerId" element={<ProtectedRoute><WriterDashboard /></ProtectedRoute>} /> */
         {/* <Route path="/blog/newblog" element={<ProtectedRoute><AddBlog /></ProtectedRoute>} />  */}
-        <Route path="/Tags" element={<Tags/>} /> 
+        <Route path="/searchpublic" element={<SearchForBlogs/>} /> 
       </Routes>
     </>
   );
