@@ -36,7 +36,7 @@ export default function BlogPage() {
 
   return (
     <>
-      <div className="px-4 py-6 md:px-6 md:py-12 lg:py-16">
+      <div className="px-4 py-6 md:px-6 md:py-12 lg:py-16 lg:w-3/5 mx-auto">
         <Button onClick={()=>navigate(-1)} className=" my-6">{"< Go Back "}</Button>
         <div className="space-y-2">
           <h1 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
