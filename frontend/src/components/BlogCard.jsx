@@ -24,7 +24,7 @@ username
 
 export default function BlogCard({ blog }) {
   return (
-    <Card className="flex flex-col min-h-[300px]">
+    <Card className="flex flex-col min-h-[300px] my-4">
       <Link className="flex-1 grid items-start p-6 gap-2 text-left" to={`/blog/${blog.id}`}>
         <div className="space-y-1.5">
           <h2 className="text-2xl font-bold line-clamp-2">{blog.title}</h2>
@@ -42,18 +42,16 @@ export default function BlogCard({ blog }) {
           </p>
           {/* HARDCODED TAGS */}
           <div className="flex flex-wrap gap-2">
-            <Link
+          {blog.tags.map((tag)=>{
+            return(
+              <Link
               className="inline-block rounded-lg bg-gray-100 px-2 py-1 text-sm dark:bg-gray-800"
-              href="#"
+              href=""
             >
-              Science
-            </Link>
-            <Link
-              className="inline-block rounded-lg bg-gray-100 px-2 py-1 text-sm dark:bg-gray-800"
-              href="#"
-            >
-              Dreams
-            </Link>
+              {tag.tagname}
+            </Link>)
+          })}
+          
           </div>
         </div>
       </CardContent>
