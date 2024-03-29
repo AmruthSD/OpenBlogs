@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../zustand/authStore";
+import useLoadStateStore from "@/zustand/loadStateStore";
+
 export default function DashBlogCard({ blog }) {
   const date = new Date(blog.publishedAt);
   const navigate = useNavigate();
+  const isAuth = useAuthStore((state) => state.isAuth);
+  const setIsLoading = useLoadStateStore((state) => state.setIsLoading);
+  const authData = useAuthStore((state) => state.authdata);
   const handleSubmit = async (event,blog_id) => {
     try{
+
         const res = await DeleteBlog(blog_id)
         alert('Blog Deleted');
         window.location.reload()
@@ -30,8 +37,11 @@ export default function DashBlogCard({ blog }) {
           Read full article
         </Link>
       </div>
-      <button onClick={(event)=>{handleSubmit(event,blog.id)}} className="bg-slate-900 hover:bg-gray-700 text-white font-bold py-2 text-sm px-1 rounded mt-4">Delete</button>
-    </div>
+      {
+        (window.location.pathname==='/dashboard')?<button onClick={(event)=>{handleSubmit(event,blog.id,blog.user_id)}} className="bg-slate-900 hover:bg-gray-700 text-white font-bold py-2 text-sm px-1 rounded mt-4">Delete</button>
+        :<></>
+      }
+      </div>
   );
 }
 
