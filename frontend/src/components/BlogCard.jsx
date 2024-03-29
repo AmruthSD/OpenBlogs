@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { CardContent, Card } from "@/components/ui/card";
+import RemoveMarkdown from "remove-markdown";
 
 /*
 content
@@ -31,7 +32,7 @@ export default function BlogCard({ blog }) {
           <p className="text-gray-500 dark:text-gray-400">
             Posted on {new Date(blog.publishedAt).toDateString()}
           </p>
-          <p className="text-sm line-clamp-3">{blog.content}</p>
+          <p className="text-sm line-clamp-3">{RemoveMarkdown(blog.content)}</p>
         </div>
       </Link>
       <CardContent className="p-6 border-t">

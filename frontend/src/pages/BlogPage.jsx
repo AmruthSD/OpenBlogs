@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import useAuthStore from "@/zustand/authStore";
+import Markdown from "react-markdown";
 import useLoadStateStore from "@/zustand/loadStateStore";
 import { ArrowUpIcon ,ArrowDownIcon } from "lucide-react";
 import axios from "axios";
@@ -83,8 +84,8 @@ export default function BlogPage() {
             Posted on {date.toDateString()}
           </p>
         </div>
-        <div className="prose prose-gray mx-auto not-prose py-6">
-          {rows["content"]}
+        <div className=" mx-auto py-6">
+          <Markdown className="prose flex-grow min-w-full">{rows["content"]}</Markdown>
         </div>
         <div className="flex flex-row gap-2 place-items-center">
           <span className="text-sm font-semibold">{votecount} upvotes</span>

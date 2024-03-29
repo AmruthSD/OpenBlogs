@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../zustand/authStore";
 import useLoadStateStore from "@/zustand/loadStateStore";
+import RemoveMarkdown from "remove-markdown";
 
 export default function DashBlogCard({ blog }) {
   const date = new Date(blog.publishedAt);
@@ -31,7 +32,7 @@ export default function DashBlogCard({ blog }) {
           {date.toDateString()}
         </p>
       </div>
-      <p>{blog.content + '...'}</p>
+      <p>{RemoveMarkdown(blog.content + '...')}</p>
       <div className="mt-4">
         <Link className="text-base font-medium underline" to={`/blog/${blog.id}`}>
           Read full article
