@@ -84,8 +84,8 @@ export default function BlogPage() {
             Posted on {date.toDateString()}
           </p>
         </div>
-        <div className="  mx-auto  py-6">
-          <Markdown className="prose">{rows["content"]}</Markdown>
+        <div className=" mx-auto py-6">
+          <Markdown className="prose flex-grow min-w-full">{rows["content"]}</Markdown>
         </div>
         <div className="flex flex-row gap-2 place-items-center">
           <span className="text-sm font-semibold">{votecount} upvotes</span>

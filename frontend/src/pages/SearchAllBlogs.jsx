@@ -65,7 +65,7 @@ export default function SearchForBlogs(){
               <TabsTrigger value="for-you">For You</TabsTrigger>
             </TabsList>
                 <div className="pb-3">
-                    {addingtag.length===0?<h3 className="text-4xl font-bold pb-10 mt-4">Recently Added</h3>
+                    {addingtag.length===0?<h3 className="text-4xl font-bold pb-4 mt-4">Recently Added</h3>
                     :<div><h1 className="text-5xl font-bold pb-5">Search Based on Tags</h1>
                     <div className="flex flex-wrap gap-2">
                         {addingtag.map((tag)=>{
