@@ -11,6 +11,7 @@ import { allTags,addOneTag } from './controllers/tagControllers.js'
 import { getFollowerAndFollowingCount, getIsFollowing ,follow,unfollow} from './controllers/userControllers.js'
 import { BlogsNoTags,BlogsWithTags,BlogsWithTagsAndFollowers,BlogsNoTagsWithFollows } from './controllers/searchBlogsControllers.js'
 import { NewBlog } from './controllers/newBlogController.js'
+import { DeleteBlog } from './controllers/deleteController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -94,6 +95,10 @@ app.post('/withTags', async (req,res)=>{
 
 app.post('/NewBlog', async (req,res)=>{
     await NewBlog(connection,req,res)
+})
+
+app.post('/DeleteBlog', async (req,res)=>{
+    await DeleteBlog(connection,req,res)
 })
 app.post('/withTagsAndFollows', async (req,res)=>{
     await BlogsWithTagsAndFollowers(connection,req,res)
