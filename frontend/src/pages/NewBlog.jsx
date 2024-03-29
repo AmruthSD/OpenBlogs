@@ -55,14 +55,14 @@ export default function NewBLog(){
     if(loading)
         return(<>Loading</>)
     return(
-        <div className="flex flex-row justify-items-start">
-            <div className="px-4 py-6 md:px-6 md:py-12 lg:py-32 mx-auto">
+        <div className="flex flex-row justify-items-start flex-wrap">
+            <div className="px-4 py-6 md:px-6 md:py-12 lg:py-32 mx-auto lg:p-16">
                 <searchTags.Provider value={{search123,setAddingTag}}>
                     <Tags />
                 </searchTags.Provider>
             </div>
         
-        <div className="px-4 py-6 md:px-6 md:py-12 lg:py-16 lg:w-3/5 mx-auto">
+        <div className="px-4 py-6 md:px-6 md:py-12 lg:py-16 lg:w-3/5 mx-auto flex-grow">
             <Button onClick={()=>navigate(-1)} className=" my-6">{"< Go Back "}</Button>
             
         <div className="flex flex-col h-screen">
@@ -73,7 +73,7 @@ export default function NewBLog(){
             </header>
             <div className="flex-1 overflow-y-auto">
                 <div className="px-4 py-6 md:px-6">
-                    <div className="mx-auto prose max-w-3xl">
+                    <div className="mx-auto prose max-w-4xl">
                         <form id="NewBlog">
                             <div className="space-y-6"><div>
                             <label forhtml="title" className="sr-only">
@@ -97,7 +97,7 @@ export default function NewBLog(){
                                 </TabsContent>
                                 <TabsContent value="for-you">
                                     {/* Preview */}
-                                    <Markdown className="prose">{content}</Markdown>
+                                    <Markdown className="prose min-h-60">{content}</Markdown>
                                 </TabsContent>
                             </Tabs>
                             
