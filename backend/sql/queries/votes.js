@@ -10,6 +10,18 @@ export async function downvoteSQL(connection, user_id,  blog_id) {
     )
 }
 
+export async function unupvoteSQL(connection, user_id,  blog_id) {
+    return await connection.query(
+        `delete from upvotes where user_id = ${user_id} and blog_id = ${blog_id};`
+    )
+}
+
+export async function undownvoteSQL(connection, user_id,  blog_id) {
+    return await connection.query(
+        `delete from downvotes where user_id = ${user_id} and blog_id = ${blog_id};`
+    )
+}
+
 export async function checkUpvoteSQL(connection, user_id, blog_id) {
     return await connection.query(
         `select count(*) as checkupvote from upvotes where user_id = ${user_id} and blog_id = ${blog_id};`
