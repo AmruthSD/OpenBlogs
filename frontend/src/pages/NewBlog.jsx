@@ -141,7 +141,7 @@ async function InsertBlog(authData,addingtag,title,content,public1){
     const tags1 = await Promise.all(addingtag.map(async (tag) => {
         return tag.id; 
     }));
-    const response = await axios.post("http://localhost:5000/NewBlog",{tags1,title,content,authData,public1});
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/NewBlog`,{tags1,title,content,authData,public1});
     return response.data.rows;
 }
 

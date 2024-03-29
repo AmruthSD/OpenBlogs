@@ -89,7 +89,7 @@ export default function SearchForBlogs(){
 }
 
 async function getPublicBlogsWithNoTags(authdata,setLoading){
-    const response = await axios.post("http://localhost:5000/noTags",{});
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/noTags`,{});
     // console.log(response.rows);
     return response.data.rows;
 }
@@ -97,13 +97,13 @@ async function getPublicBlogsWithTags(authdata,setLoading,addingtag){
     const tags1 = await Promise.all(addingtag.map(async (tag) => {
         return tag.id; 
     }));
-    const response = await axios.post("http://localhost:5000/withTags",{tags1});
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/withTags`,{tags1});
     console.log(response.data.rows,tags1);
     return response.data.rows;
 }
 
 async function getPublicBlogsWithNoTagsAndFollows(authdata,setLoading){
-    const response = await axios.post("http://localhost:5000/noTagsWithFollows",{userId:authdata.id});
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/noTagsWithFollows`,{userId:authdata.id});
     // console.log(response.rows);
     return response.data.rows;
 }
@@ -112,7 +112,7 @@ async function getPublicBlogsWithTagsAndFollows(authdata,setLoading,addingtag){
     const tags1 = await Promise.all(addingtag.map(async (tag) => {
         return tag.id; 
     }));
-    const response = await axios.post("http://localhost:5000/withTagsAndFollows",{tags1,userId:authdata.id});
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/withTagsAndFollows`,{tags1,userId:authdata.id});
     // console.log(response.data.rows,tags1);
     return response.data.rows;
 }

@@ -86,7 +86,7 @@ export default function Component() {
 async function fetchAllBlogs(authdata , setIsLoading) {
   setIsLoading(true)
   try {
-    const response = await axios.get("http://localhost:5000/blog/allblogs", {
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/blog/allblogs`, {
       params: {
         userId: authdata.id,
       },

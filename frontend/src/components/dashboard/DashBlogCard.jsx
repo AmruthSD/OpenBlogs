@@ -48,6 +48,6 @@ export default function DashBlogCard({ blog }) {
 
 
 async function DeleteBlog(blog_id){
-  const resp = await axios.post("http://localhost:5000/DeleteBlog",{blog_id});
+  const resp = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/DeleteBlog`,{blog_id});
   return resp
 }

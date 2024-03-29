@@ -19,14 +19,18 @@ app.use(express.json());
 // Middleware
 app.use(cors(
     {
-        origin: '*',
+        origin: process.env.FRONTEND_URL,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true
     }
 ));
 const connection = await mysql.createConnection({
-    uri: process.env.MYSQL_URI
+    uri: process.env.MYSQL_URI,
+    ssl:{
+        ca: process.env.MYSQL_SSL_CERT,
+        rejectUnauthorized: false // Accept self-signed certificates
+    }
 })
 
 /************** USER ROUTES *****************/ 
