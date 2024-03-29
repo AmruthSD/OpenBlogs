@@ -27,9 +27,10 @@ export default function Component() {
           <span className=" text-xl">OpenBlogs</span>
         </Link>
       </div>
-      <div className="ml-auto flex items-center gap-4">
-        <Link to="/blogs">Home</Link>
-        <Link to="/dashboard">Dashboard</Link>
+      <div className="ml-auto flex items-center gap-8 font-bold">
+        <Link to="/blogs" className=" hover:text-blue-500 duration-150">Blogs</Link>
+        <Link to="/dashboard" className=" hover:text-blue-500 duration-150">Dashboard</Link>
+        <Link to="/newblog" className=" hover:text-blue-500 duration-150">New Blog</Link>
         {isAuth ? (
           <PopoverComponent />
         ) : (
