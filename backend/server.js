@@ -11,6 +11,7 @@ import { allTags,addOneTag } from './controllers/tagControllers.js'
 import { getFollowerAndFollowingCount, getIsFollowing ,follow,unfollow} from './controllers/userControllers.js'
 import { BlogsNoTags,BlogsWithTags,BlogsWithTagsAndFollowers,BlogsNoTagsWithFollows } from './controllers/searchBlogsControllers.js'
 import { NewBlog } from './controllers/newBlogController.js'
+import { checkVote,upvote,downvote,getVotes,undownvote,unupvote } from './controllers/votescontroller.js'
 import { DeleteBlog } from './controllers/deleteController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -105,4 +106,24 @@ app.post('/withTagsAndFollows', async (req,res)=>{
 })
 app.post('/noTagsWithFollows', async (req,res)=>{
     await BlogsNoTagsWithFollows(connection,req,res)
+})
+
+/********************* VOTES ************************/ 
+app.get('/votes/checkvote', async (req,res)=>{
+    await checkVote(connection,req,res)
+})
+app.post('/votes/upvote', async (req,res)=>{
+    await upvote(connection,req,res)
+})
+app.post('/votes/downvote', async (req,res)=>{
+    await downvote(connection,req,res)
+})
+app.get('/votes/votecount', async (req,res)=>{
+    await getVotes(connection,req,res)
+})
+app.post('/votes/unupvote', async (req,res)=>{
+    await unupvote(connection,req,res)
+})
+app.post('/votes/undownvote', async (req,res)=>{
+    await undownvote(connection,req,res)
 })
