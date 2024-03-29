@@ -68,15 +68,6 @@ export default function BlogPage() {
   );
 }
 
-// /**
-//  * v0 by Vercel.
-//  * @see https://v0.dev/t/mSFFul2jYeD
-//  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
-//  */
-// import { Button } from "@/components/ui/button"
+/**************** HELPER FUNCTION ***********************/
 
-// export default function Component() {
-//   return (
-
-//   )
-// }
+// get upvotes and downvotes

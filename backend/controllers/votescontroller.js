@@ -48,24 +48,13 @@ export async function downvote(connection, req, res) {
     }
 }
 
-// GET /votes/getupvotes
-export async function getUpvotes(connection, req, res) {
+// GET /votes/votecount
+export async function getVotes(connection, req, res) {
     const { blog_id } = req.query
     try {
         const [rows, fields] = await getUpvotesSQL(connection, blog_id)
-        res.status(200).json({ upvotes: rows[0].upvotes })
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ message: 'Internal Server Error' })
-    }
-}
-
-// GET /votes/getdownvotes
-export async function getDownvotes(connection, req, res) {
-    const { blog_id } = req.query
-    try {
-        const [rows, fields] = await getDownvotesSQL(connection, blog_id)
-        res.status(200).json({ downvotes: rows[0].downvotes })
+        const [rows2,fields2] = await getDownvotesSQL(connection, blog_id)
+        res.status(200).json({ upvotes: rows[0].upvotes , downvotes: rows2[0].downvotes})
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Internal Server Error' })
