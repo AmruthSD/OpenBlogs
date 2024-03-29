@@ -67,6 +67,7 @@ export async function getFollowerAndFollowingCount(connection , req , res) {
         const [rows2 , fields2] = await getFollowingCountSQL(connection , userId)
         const {follower_count} = rows1[0]
         const {following_count} = rows2[0]
+        console.log(follower_count,following_count);
         res.status(200).json({follower_count,following_count})
     } catch (err) {
         console.log(err);

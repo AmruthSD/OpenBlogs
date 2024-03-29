@@ -52,8 +52,8 @@ export default function SearchForBlogs(){
             <FullScreenSpinner/>
         )
     }
-    return(<div className="flex p-8">
-        <div className="px-3 py-10">
+    return(<div className="flex p-8 md:flex-nowrap flex-wrap ">
+        <div className="px-3 py-10 ">
             <searchTags.Provider value={{search123,setAddingTag}}>
                 <Tags />
             </searchTags.Provider>

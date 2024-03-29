@@ -20,12 +20,12 @@ export async function getUserDetailsSQL(connection, userId) {
             (
                 SELECT COUNT(*) 
                 FROM follows 
-                WHERE user_id = u.id
+                WHERE follower_id = u.id
             ) AS followers_count,
             (
                 SELECT COUNT(*) 
                 FROM follows 
-                WHERE follower_id = u.id
+                WHERE user_id = u.id
             ) AS following_count
         FROM users u
         WHERE u.id = ${userId}`
