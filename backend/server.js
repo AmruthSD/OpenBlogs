@@ -10,7 +10,7 @@ import { createNewBlog ,getAllBlogs , getWritersBlogs } from './controllers/blog
 import { allTags,addOneTag } from './controllers/tagControllers.js'
 import { getFollowerAndFollowingCount, getIsFollowing ,follow,unfollow} from './controllers/userControllers.js'
 import { BlogsNoTags,BlogsWithTags } from './controllers/searchBlogsControllers.js'
-
+import { NewBlog } from './controllers/newBlogController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -90,4 +90,8 @@ app.post('/noTags', async (req,res)=>{
 })
 app.post('/withTags', async (req,res)=>{
     await BlogsWithTags(connection,req,res)
+})
+
+app.post('/NewBlog', async (req,res)=>{
+    await NewBlog(connection,req,res)
 })
