@@ -52,7 +52,7 @@ export default function NewBLog(){
     if(loading)
         return(<>Loading</>)
     return(
-        <div className="flex">
+        <div className="flex flex-row justify-items-start">
             <div className="px-4 py-6 md:px-6 md:py-12 lg:py-32 mx-auto">
                 <searchTags.Provider value={{search123,setAddingTag}}>
                     <Tags />
@@ -85,13 +85,13 @@ export default function NewBLog(){
                             <textarea onChange={handleChange1} class="flex w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-[200px] border-0 box-shadow-none" id="content" placeholder="Write your blog post here..."></textarea>
                             </div>
                             </div>
-                            <div className="flex flex-wrap p-2 gap-2">
+                            <div className="flex flex-wrap p-2 gap-2 place-items-center">
                                 Added Tags  
                                 {addingtag.length===0?"  None":addingtag.map((tag)=>{
                                     return(<h1 className="inline-block rounded-lg bg-gray-100 px-2 py-1 text-m dark:bg-gray-800">{tag.tagname}</h1>)
                                 })}
                             </div>
-                            <div className="flex space-x-6 p-2">
+                            <div className="flex space-x-6 p-2 place-items-center">
                                 <div>{public1?'This Blog is Public':'This Blog is Private'}</div>
                                 <button onClick={(event)=>{event.preventDefault();setPublic(!public1)}} class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Change</button>
                             </div>

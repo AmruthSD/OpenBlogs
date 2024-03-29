@@ -109,7 +109,7 @@ export default function Tags(){
             <button onClick={createTag} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create New Tag</button> :
             <h1 className="text-gray-500">Tag too small</h1>
         }
-        <h1 className="text-lg font-semibold mt-4">Results</h1>
+        {resulttags.length>0 && <h1 className="text-lg font-semibold mt-4">Results</h1>}
         {resulttags.map((tag) => {
             if (!addingtags.has(tag)) {
                 return (

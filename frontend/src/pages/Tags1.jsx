@@ -106,10 +106,10 @@ export default function Tags(){
             perfectMatch ?
             <h1 className="text-gray-500">Can't create tag, already exists</h1> :
             search.length > 3 ?
-            <button onClick={createTag} class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Create New Tag</button> :
+            <button onClick={createTag} class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3 mx-2">+</button> :
             <h1 className="text-gray-500">Tag too small</h1>
         }
-        <h1 className="text-lg font-semibold mt-4">Results</h1>
+        {resulttags.length>0 && <h1 className="text-lg font-semibold mt-4">Results</h1>}
         {resulttags.map((tag) => {
             if (!addingtags.has(tag)) {
                 return (

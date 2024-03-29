@@ -22,3 +22,43 @@ export async function tagsWithTags(connection,id) {
                 `
             )
 }
+
+export async function blogsWithTagsAndFollowersSQL(connection, tags, userId) {
+    return await connection.query(
+        `WITH ids AS (
+            SELECT DISTINCT b1.id
+            FROM blogs b1, blog_tags t1
+            WHERE t1.blog_id = b1.id
+            AND t1.tag_id IN (?)
+        )
+        SELECT b.*, u.username AS username
+        FROM blogs b
+        JOIN users u ON u.id = b.user_id
+        JOIN ids i ON i.id = b.id
+        LEFT JOIN follows f ON f.user_id = ? AND f.follower_id = b.user_id
+        WHERE isPublic = 1
+        AND (f.user_id IS NOT NULL OR b.user_id = ?)
+        ORDER BY (
+            SELECT COUNT(*)
+            FROM upvotes u123
+            WHERE u123.blog_id = b.id
+        ) DESC
+        `,
+        [tags, userId, userId]
+    );
+}
+
+export async function blogsNoTagsWithFollowsSQL(connection, userId) {
+    return await connection.query(
+        `
+        SELECT b.*, u.username AS username
+        FROM blogs b
+        JOIN users u ON u.id = b.user_id
+        LEFT JOIN follows f ON f.user_id = ? AND f.follower_id = b.user_id
+        WHERE isPublic = 1
+        AND (f.user_id IS NOT NULL OR b.user_id = ?)
+        ORDER BY publishedAt DESC
+        `,
+        [userId, userId]
+    );
+}

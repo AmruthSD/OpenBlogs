@@ -28,6 +28,8 @@ export default function Component() {
         </Link>
       </div>
       <div className="ml-auto flex items-center gap-4">
+        <Link to="/blogs">Home</Link>
+        <Link to="/dashboard">Dashboard</Link>
         {isAuth ? (
           <PopoverComponent />
         ) : (
@@ -50,14 +52,13 @@ function PopoverComponent() {
           variant="ghost"
         >
           <Avatar className="w-8 h-8">
-            <UserCircleIcon />
+            <UserCircleIcon className="mx-auto my-auto"/>
           </Avatar>
           <span className="sr-only">Toggle user menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem className=""><strong>{auth?.username}</strong></DropdownMenuItem>
-        <DropdownMenuItem>Profile</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem> <Logout/></DropdownMenuItem>
       </DropdownMenuContent>
