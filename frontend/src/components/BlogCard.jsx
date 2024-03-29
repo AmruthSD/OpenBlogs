@@ -45,6 +45,7 @@ export default function BlogCard({ blog }) {
           {blog.tags.map((tag)=>{
             return(
               <Link
+              key={tag.id}
               className="inline-block rounded-lg bg-gray-100 px-2 py-1 text-sm dark:bg-gray-800"
               href=""
             >

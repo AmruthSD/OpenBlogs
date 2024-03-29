@@ -26,7 +26,7 @@ export default function App() {
       {isLoading && <FullScreenSpinner />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/blogs" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        {/* <Route path="/blogs" element={<ProtectedRoute><Home /></ProtectedRoute>} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
@@ -34,7 +34,7 @@ export default function App() {
         <Route path="/newblog" element={<NewBLog />} /> 
         <Route path="/writers/:writerId" element={<ProtectedRoute><WriterDashboard /></ProtectedRoute>} /> */
         {/* <Route path="/blog/newblog" element={<ProtectedRoute><AddBlog /></ProtectedRoute>} />  */}
-        <Route path="/searchpublic" element={<SearchForBlogs/>} /> 
+        <Route path="/blogs" element={<ProtectedRoute><SearchForBlogs/></ProtectedRoute>} /> 
       </Routes>
     </>
   );

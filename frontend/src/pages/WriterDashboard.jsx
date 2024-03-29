@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DashBlogCard from "@/components/dashboard/DashBlogCard";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import useLoadStateStore from "@/zustand/loadStateStore";
 import axios from "axios";
 
 export default function WriterDashboard() {
   const setIsLoading = useLoadStateStore((state) => state.setIsLoading);
+  const navigate = useNavigate()
   const isAuth = useAuthStore((state) => state.isAuth);
   const authData = useAuthStore((state) => state.authdata);
   const [writerDetails, setWriterDetails] = useState({});
@@ -70,8 +72,10 @@ export default function WriterDashboard() {
     }
   }
 
+
   return (
     <div className="px-4 py-6 md:px-6 md:py-12 lg:py-16">
+      <Button onClick={()=> navigate(-1)} className="my-4">{"< Go back"}</Button>
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl xl:text-5xl">
           {writerDetails?.username}
