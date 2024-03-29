@@ -27,13 +27,18 @@ export default function NewBLog(){
         const str = (event.target.value).trim();
         setContent(str)
     };
-    const handleChange2 = () => {
-        setPublic(!public1)
-    };
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         setLoading(true)
         event.preventDefault(); 
         console.log('Form submitted with data:', title,content,authData);
+        try{
+            await InsertBlog(authData,addingtag,title,content,public1)
+            alert('Blog Published');
+            navigate(`/dashboard`)
+
+        }catch(err){
+                console.log(err)
+        }
 
     };
     useEffect(()=>{
@@ -66,7 +71,7 @@ export default function NewBLog(){
             <div class="flex-1 overflow-y-auto">
                 <div class="px-4 py-6 md:px-6">
                     <div class="mx-auto prose max-w-3xl">
-                        <form onSubmit={handleSubmit}>
+                        <form id="NewBlog">
                             <div class="space-y-6"><div>
                             <label for="title" class="sr-only">
                             Title
@@ -88,13 +93,13 @@ export default function NewBLog(){
                             </div>
                             <div className="flex space-x-6 p-2">
                                 <div>{public1?'This Blog is Public':'This Blog is Private'}</div>
-                                <button onClick={handleChange2} class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Change</button>
+                                <button onClick={(event)=>{event.preventDefault();setPublic(!public1)}} class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Change</button>
                             </div>
                             <div class="border-t">
                                 <div class="px-4 py-4 md:px-6 md:py-6">
                                     <div class="flex items-center justify-between">
                                         {
-                                            possible?<button type ='submit' class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Publish</button>
+                                            possible?<button type ='submit' onClick={handleSubmit} class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Publish</button>
                                             :'Atleast one tag needs to be added'
                                         }      
                                     </div>
@@ -113,11 +118,10 @@ export default function NewBLog(){
 }
 
 
-async function InsertBlog(authdata,addingtag,title,content){
+async function InsertBlog(authData,addingtag,title,content,public1){
     const tags1 = await Promise.all(addingtag.map(async (tag) => {
         return tag.id; 
     }));
-    const response = await axios.post("http://localhost:5000/newblog",{tags1,title,content,authdata});
-    console.log(response.data.rows,tags1);
+    const response = await axios.post("http://localhost:5000/newblog",{tags1,title,content,authData,public1});
     return response.data.rows;
 }

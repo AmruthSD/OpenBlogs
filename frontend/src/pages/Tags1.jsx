@@ -87,7 +87,7 @@ export default function Tags(){
         )
     }
     return(<>
-        <button onClick={() => { console.log(addingtags, "hi"); setAddingTag(Array.from(addingtags)); }}class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Apply Tags</button>
+        <button onClick={() => { console.log(addingtags, "hi"); setAddingTag(Array.from(addingtags)); }} className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Apply Tags</button>
         
         <div className="py-4">
             <h1 className="text-lg font-semibold mt-4">Adding</h1>
