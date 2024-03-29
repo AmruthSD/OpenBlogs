@@ -24,7 +24,7 @@ export default function DashBlogCard({ blog }) {
   };
 
   return (
-    <div className="border space-y-4 p-3">
+    <div className=" space-y-4 p-3">
       <div className="space-y-2">
         <h2 className="text-2xl font-bold tracking-tight">{blog.title}</h2>
         <p className="text-gray-500 dark:text-gray-400">
