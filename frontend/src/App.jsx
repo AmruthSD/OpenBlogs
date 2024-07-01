@@ -11,6 +11,7 @@ import FullScreenSpinner from "./components/FullScreenSpinner";
 import useLoadStateStore from "./zustand/loadStateStore";
 import SearchForBlogs from "./pages/SearchAllBlogs";
 import NewBLog from "./pages/NewBlog";
+import Friends from "./pages/Friends";
 export default function App() {
   const isLoading = useLoadStateStore((state) => state.isLoading);
 
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/newblog" element={<ProtectedRoute><NewBLog /></ProtectedRoute>} /> 
         <Route path="/writers/:writerId" element={<ProtectedRoute><WriterDashboard /></ProtectedRoute>} /> */
         <Route path="/blogs" element={<ProtectedRoute><SearchForBlogs/></ProtectedRoute>} /> 
+        <Route path="/friends" element={<ProtectedRoute><Friends/></ProtectedRoute>} /> 
       </Routes>
     </>
   );

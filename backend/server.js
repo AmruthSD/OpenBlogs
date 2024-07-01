@@ -13,6 +13,7 @@ import { BlogsNoTags,BlogsWithTags,BlogsWithTagsAndFollowers,BlogsNoTagsWithFoll
 import { NewBlog } from './controllers/newBlogController.js'
 import { checkVote,upvote,downvote,getVotes,undownvote,unupvote } from './controllers/votescontroller.js'
 import { DeleteBlog } from './controllers/deleteController.js'
+import { FriendsData } from './controllers/friendsController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -131,4 +132,10 @@ app.post('/votes/unupvote', async (req,res)=>{
 })
 app.post('/votes/undownvote', async (req,res)=>{
     await undownvote(connection,req,res)
+})
+
+
+/***********************Friends*************************/
+app.post('/friends',async(req,res)=>{
+    await FriendsData(connection,req,res);
 })

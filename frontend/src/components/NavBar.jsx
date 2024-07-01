@@ -55,6 +55,9 @@ export default function Component() {
           <Link to="/newblog" className="hover:text-blue-500 duration-150">
             New Blog
           </Link>
+          <Link to="/friends" className="hover:text-blue-500 duration-150">
+            Friends
+          </Link>
           </div>
         </div>
         {isAuth ? (
