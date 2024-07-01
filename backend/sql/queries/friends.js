@@ -21,3 +21,23 @@ export async function getMyRequests(connection,user_id){
         `
     ) 
 }
+
+export async function getSearchResults(connection,user_id,text){
+    return await connection.query(
+        `
+        select u.id,u.username from users u where u.id != ${user_id} and u.username like '${text}%' 
+        and not exists(select 1 from requests r where r.fromuser = u.id and r.touser = ${user_id} ) 
+        and not exists(select 1 from requests r where r.fromuser = ${user_id}  and r.touser = u.id) 
+        and not exists(select 1 from friends f where f.user1 = ${user_id}  and f.user2 = u.id) 
+        order by u.username limit 0,10;
+        `
+    )
+}
+
+export async function sendRequest(connection,user_id,to_user_id){
+    return await connection.query(
+        `
+            insert into requests value(${user_id},${to_user_id});
+        `
+    )
+}

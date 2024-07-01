@@ -25,6 +25,10 @@ export default function Login() {
 
 
   async function handleSignUp() {
+    if(username.length < 5 ) {
+      alert("Username too small")
+      return
+    }
     if(confirmpassword !== password) {
       alert("Passwords dont match!")
       return
