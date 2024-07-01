@@ -25,10 +25,11 @@ app.use(cors(
         credentials: true
     }
 ));
+
 const connection = await mysql.createConnection({
-    uri: process.env.MYSQL_URI,
+    uri: process.env.DB_URI,
     ssl:{
-        ca: process.env.MYSQL_SSL_CERT,
+        ca: process.env.DB_CA_CERT,
         rejectUnauthorized: false // Accept self-signed certificates
     }
 })

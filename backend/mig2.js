@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const connection = await mysql.createConnection({
-    uri: process.env.MYSQL_URI
+    uri: process.env.DB_URI
 })
 
 await connection.query(`
