@@ -55,15 +55,22 @@ export default function NewColaborativeBLog(){
             cofriends:[...friendsSet,{username:authData.username,id:authData.id}],
             tags:addingtag
           })
-        const res = await axios.post(
-            import.meta.env.VITE_BACKEND_URL + "/createcolab",
-            {
-              user_id: authData.id,
-              title: title,
-              cofriends:[...friendsSet,{username:authData.username,id:authData.id}],
-              tags:addingtag
-            }
-        );
+          try {
+            const res = await axios.post(
+                import.meta.env.VITE_BACKEND_URL + "/createcolab",
+                {
+                  user_id: authData.id,
+                  title: title,
+                  cofriends:[...friendsSet,{username:authData.username,id:authData.id}],
+                  tags:addingtag
+                }
+            );
+            alert('Done')
+            navigate('/dashboard')
+          } catch (error) {
+            console.log(error)
+          }
+        
     }  
     useEffect(()=>{
         setIsLoading(true);
