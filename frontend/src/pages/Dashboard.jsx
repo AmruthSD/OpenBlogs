@@ -35,6 +35,9 @@ export default function Dashboard() {
           <Link className="border rounded-xl border-slate-950 px-4 py-2" to={`/newblog`}>
             New Blog
           </Link>
+          <Link className="border rounded-xl border-slate-950 px-4 py-2" to={`/newcollabblog`}>
+            New Colaborative Blog
+          </Link>
         </div>
 
         <div className="flex items-center space-x-3 text-gray-500 dark:text-gray-400">
@@ -48,9 +51,21 @@ export default function Dashboard() {
           <p className="font-semibold">Blogs</p>
         </div>
       </div>
-      <div className="border-b border-gray-200 dark:border-gray-800" />
-      <div className="grid gap-6 pt-6 md:grid-cols-2">
-        <Blogs setBlogCount = {setBlogCount} />
+      <div className="border-b m-5 border-gray-200 dark:border-gray-800" />
+      <div className="p-3 font-bold border-2">
+        <span className="text-3xl">Ongoing Colaborative Blogs</span>
+        <div className="grid gap-6 pt-6 md:grid-cols-2">
+          {
+          //Colaborative blogs here
+          }
+        </div>
+      </div>
+      <div className="border-b m-5 border-gray-200 dark:border-gray-800" />
+      <div className="p-3 font-bold border-2">
+        <span className="text-3xl">Your Blogs</span>
+        <div className="grid gap-6 pt-6 md:grid-cols-2">
+          <Blogs setBlogCount = {setBlogCount} />
+        </div>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ import { BlogsNoTags,BlogsWithTags,BlogsWithTagsAndFollowers,BlogsNoTagsWithFoll
 import { NewBlog } from './controllers/newBlogController.js'
 import { checkVote,upvote,downvote,getVotes,undownvote,unupvote } from './controllers/votescontroller.js'
 import { DeleteBlog } from './controllers/deleteController.js'
-import { AcceptRequest, FriendsData, RemoveRequest, SearchForFriend, SendRequest } from './controllers/friendsController.js'
+import { AcceptRequest, FriendsData, OnlyMyFriendsData, RemoveRequest, SearchForFriend, SendRequest } from './controllers/friendsController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -148,7 +148,9 @@ app.post('/friends/addfriend',async(req,res)=>{
 app.post("/friends/removeReq",async(req,res)=>{
     await RemoveRequest(connection,req,res);
 })
-
 app.post("/friends/acceptReq",async(req,res)=>{
     await AcceptRequest(connection,req,res);
+})
+app.post('/myfriends',async(req,res)=>{
+    await OnlyMyFriendsData(connection,req,res);
 })

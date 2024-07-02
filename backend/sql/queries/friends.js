@@ -1,7 +1,7 @@
 export async function getFriends(connection,user_id){
     return await connection.query(
         `
-            select users.username,users.id from users,friends where users.id = friends.user2 and friends.user1 = ${user_id};
+            select users.username,users.id from users,friends where users.id = friends.user2 and friends.user1 = ${user_id} order by users.username;
         `
     ) 
 }

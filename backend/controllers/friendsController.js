@@ -13,6 +13,17 @@ export async function FriendsData(connection,req,res){
     }
 }
 
+export async function OnlyMyFriendsData(connection,req,res){
+    const user_id = req.body.user_id;
+    try {
+        const [rows,fields] = await getFriends(connection,user_id)
+        res.status(200).json({friends:rows})
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({message : 'Internal Server Error'})
+    }
+}
+
 export async function SearchForFriend(connection,req,res){
     const user_id = req.body.user_id,text = req.body.text;
     try {
