@@ -2,11 +2,9 @@ import { createCollabBlog, getNewCollabBlog,addTagsNewCollabBlog,addUsersNewColl
 
 export async function NewCollabBlog(connection,req,res){
     const {user_id,title,cofriends,tags} = req.body;
-    console.log(user_id,title,tags)
     try {
         await createCollabBlog(connection,user_id,title)
         const [rows,feilds] = await getNewCollabBlog(connection,user_id,title)
-        console.log(rows)
         const id = rows[0].id;
         await collabTagsAdder(connection,id,tags)
         await collabUsersAdder(connection,id,cofriends)
