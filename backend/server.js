@@ -5,14 +5,14 @@ import cors from 'cors'
 const app = express()
 const port = process.env.PORT || 5000
 import { signUpUser , loginUser ,getUserDetails, authmiddleware } from './controllers/userControllers.js'
-import { userBlogs,indBlog } from './controllers/dashboardControllers.js'
+import { userBlogs,indBlog,userCollabBlogs } from './controllers/dashboardControllers.js'
 import { createNewBlog ,getAllBlogs , getWritersBlogs } from './controllers/blogsController.js'
 import { allTags,addOneTag } from './controllers/tagControllers.js'
 import { getFollowerAndFollowingCount, getIsFollowing ,follow,unfollow} from './controllers/userControllers.js'
 import { BlogsNoTags,BlogsWithTags,BlogsWithTagsAndFollowers,BlogsNoTagsWithFollows } from './controllers/searchBlogsControllers.js'
 import { NewBlog } from './controllers/newBlogController.js'
 import { checkVote,upvote,downvote,getVotes,undownvote,unupvote } from './controllers/votescontroller.js'
-import { DeleteBlog } from './controllers/deleteController.js'
+import { DeleteBlog, DeleteCollabBlog } from './controllers/deleteController.js'
 import { AcceptRequest, FriendsData, OnlyMyFriendsData, RemoveRequest, SearchForFriend, SendRequest } from './controllers/friendsController.js'
 import { NewCollabBlog } from './controllers/newCollabBlogController.js'
 app.use(express.urlencoded({ extended: true }));
@@ -65,6 +65,9 @@ app.post('/users/unfollow', async (req,res) => {
 app.post('/dashboard', async (req,res)=>{
     await userBlogs(connection,req,res)
 })
+app.post('/dashboard/collabs', async (req,res)=>{
+    await userCollabBlogs(connection,req,res)
+})
 app.post('/dashboard/blog', async (req,res)=>{
     await indBlog(connection,req,res)
 })
@@ -104,9 +107,12 @@ app.post('/withTags', async (req,res)=>{
 app.post('/NewBlog', async (req,res)=>{
     await NewBlog(connection,req,res)
 })
-
+/********************Delete Blogs***************************/
 app.post('/DeleteBlog', async (req,res)=>{
     await DeleteBlog(connection,req,res)
+})
+app.post('/DeleteCollabBlog', async (req,res)=>{
+    await DeleteCollabBlog(connection,req,res)
 })
 app.post('/withTagsAndFollows', async (req,res)=>{
     await BlogsWithTagsAndFollowers(connection,req,res)

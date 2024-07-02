@@ -4,7 +4,8 @@ import useAuthStore from "../../zustand/authStore";
 import ContentModal from "./modalcontent";
 import DashBlogCard from "./DashBlogCard";
 import Content from "../../pages/BlogPage";
-export function Blogs({ setBlogCount}) {
+import DashCollabBlogCard from "./DashCollabCard";
+export function CollabBlogs({ setBlogCount}) {
   const authData = useAuthStore((state) => state.authdata);
   const [loading, setLoading] = useState(false);
   const [rows, setRows] = useState([]);
@@ -13,9 +14,8 @@ export function Blogs({ setBlogCount}) {
   useEffect(() => {
     setLoading(true);
     const getBloggs = async () => {
-      //console.log(authData.token);
       const res = await axios.post(
-        import.meta.env.VITE_BACKEND_URL + "/dashboard",
+        import.meta.env.VITE_BACKEND_URL + "/dashboard/collabs",
         {
           user_id: authData.id,
         },
@@ -45,9 +45,10 @@ export function Blogs({ setBlogCount}) {
   } else {
     return (
       <>
-        {rows.map((blog) => {
+        {
+        rows.map((blog) => {
           return (
-            <DashBlogCard key={blog.id} blog={blog} />
+            <DashCollabBlogCard key={blog.id} blog={blog}/>
           );
         })}
       </>

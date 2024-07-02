@@ -4,6 +4,7 @@ import { Blogs } from "../components/dashboard/blogs";
 import axios from "axios";
 import useLoadStateStore from "@/zustand/loadStateStore";
 import { Link } from "react-router-dom";
+import { CollabBlogs } from "@/components/dashboard/collabblog";
 
 export default function Dashboard() {
   const isAuth = useAuthStore((state) => state.isAuth);
@@ -18,7 +19,6 @@ export default function Dashboard() {
       setIsLoading(true);
       const res1 = await getUserDetails(authData.id, authData);
       if (res1) {
-        console.log(res1);
         setUserdetails(res1);
       }
       setIsLoading(false)
@@ -55,9 +55,7 @@ export default function Dashboard() {
       <div className="p-3 font-bold border-2">
         <span className="text-3xl">Ongoing Colaborative Blogs</span>
         <div className="grid gap-6 pt-6 md:grid-cols-2">
-          {
-          //Colaborative blogs here
-          }
+          <CollabBlogs setBlogCount = {setBlogCount} />
         </div>
       </div>
       <div className="border-b m-5 border-gray-200 dark:border-gray-800" />

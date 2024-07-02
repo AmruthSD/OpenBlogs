@@ -5,6 +5,13 @@ export async function getBlogs(connection, user_id) {
     )
 }
 
+export async function getCollabBlogs(connection, user_id) {
+    return await connection.query(
+        `SELECT id,title,SUBSTRING(content,1,100) as content,cb.user_id  FROM collabblogs cb
+        WHERE exists(select 1 from collabblog_users cbu where cb.id = cbu.blog_id and cbu.user_id = ${user_id})`
+    )
+}
+
 export async function individualBlog(connection, blog_id) {
     return await connection.query(
         `with upvotes(u) as (select count(*) from upvotes where blog_id= ${blog_id}),
