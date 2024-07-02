@@ -1,4 +1,4 @@
-import { getFriends,getRequests,getMyRequests, getSearchResults, sendRequest } from "../sql/queries/friends.js";
+import { getFriends,getRequests,getMyRequests, getSearchResults, sendRequest, removeRequest, acceptRequest } from "../sql/queries/friends.js";
 
 export async function FriendsData(connection,req,res){
     const user_id = req.body.user_id;
@@ -29,7 +29,34 @@ export async function SearchForFriend(connection,req,res){
 export async function SendRequest(connection,req,res){
     const user_id = req.body.user_id,to_user_id = req.body.to_user_id;
     try {
-        const [rows,fields] = await sendRequest(connection,user_id,to_user_id)
+        await sendRequest(connection,user_id,to_user_id)
+        res.status(200).json({result:true})
+        
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({message : 'Internal Server Error'})
+    }
+}
+
+export async function RemoveRequest(connection,req,res){
+    const user_id = req.body.user_id,to_user_id = req.body.to_user_id;
+    try {
+        await removeRequest(connection,user_id,to_user_id)
+        res.status(200).json({result:true})
+        
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({message : 'Internal Server Error'})
+    }
+}
+
+export async function AcceptRequest(connection,req,res){
+    const user_id = req.body.user_id,to_user_id = req.body.to_user_id;
+    try {
+        
+        await acceptRequest(connection,user_id,to_user_id)
+        await removeRequest(connection,user_id,to_user_id)
+        
         res.status(200).json({result:true})
         
     } catch (err) {

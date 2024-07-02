@@ -41,3 +41,22 @@ export async function sendRequest(connection,user_id,to_user_id){
         `
     )
 }
+
+export async function removeRequest(connection,user_id,to_user_id){
+    return await connection.query(
+        `
+            delete from requests where fromuser = ${user_id} and touser = ${to_user_id};
+        `
+    )
+}
+
+
+export async function acceptRequest(connection, user_id, to_user_id) {
+    const values = [[user_id, to_user_id], [to_user_id, user_id]];
+
+    const sql = `
+        INSERT INTO friends (user1,user2) VALUES ?;
+    `;
+
+    return await connection.query(sql,[values]);
+}
