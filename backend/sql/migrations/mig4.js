@@ -14,7 +14,8 @@ await connection.query(`
         user_id INT NOT NULL,
         title VARCHAR(100) NOT NULL,
         content LONGTEXT,
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        unique(user_id,title)
     )
 `)
 
@@ -34,7 +35,7 @@ await connection.query(`
         user_id INT NOT NULL,
         FOREIGN KEY (blog_id) REFERENCES collabblogs(id),
         FOREIGN KEY (user_id) REFERENCES users(id),
-	  primary key(blog_id,user_id),
+	  primary key(blog_id,user_id)
     )
 
 `)

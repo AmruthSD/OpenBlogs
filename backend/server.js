@@ -14,6 +14,7 @@ import { NewBlog } from './controllers/newBlogController.js'
 import { checkVote,upvote,downvote,getVotes,undownvote,unupvote } from './controllers/votescontroller.js'
 import { DeleteBlog } from './controllers/deleteController.js'
 import { AcceptRequest, FriendsData, OnlyMyFriendsData, RemoveRequest, SearchForFriend, SendRequest } from './controllers/friendsController.js'
+import { NewCollabBlog } from './controllers/newCollabBlogController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -153,4 +154,10 @@ app.post("/friends/acceptReq",async(req,res)=>{
 })
 app.post('/myfriends',async(req,res)=>{
     await OnlyMyFriendsData(connection,req,res);
+})
+
+
+/*******************Collab Blogs*********************/
+app.post("/createcolab",async(req,res)=>{
+    await NewCollabBlog(connection,req,res);
 })
