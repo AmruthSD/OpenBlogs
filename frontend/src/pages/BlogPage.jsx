@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import useAuthStore from "@/zustand/authStore";
 import Markdown from "react-markdown";
@@ -9,6 +9,7 @@ import { ArrowUpIcon ,ArrowDownIcon } from "lucide-react";
 import axios from "axios";
 
 export default function BlogPage() {
+  const usernameref = useRef();
   const { id } = useParams();
   const navigate = useNavigate();
   const bid = id;
@@ -19,6 +20,51 @@ export default function BlogPage() {
   const authData = useAuthStore((state) => state.authdata);
   const [votecount,setVoteCount] = useState(0);
   const [rows, setRows] = useState([]);
+  const [allfriends,setAllFriends] =useState([])
+  const [friendsSet,setFriendsSet] = useState(new Set())
+  const [searchVal,setSearchVal] = useState("")
+
+const handelSearch = async()=>{
+    setIsLoading(true)
+    setSearchVal(usernameref.current.value)
+    setIsLoading(false)
+}
+const handleAdd = (e) => {
+    setIsLoading(true)
+    setFriendsSet(prevSet => new Set(prevSet).add(e));
+    
+    setIsLoading(false)
+  };
+  const handleRemove = (item) => {
+    setFriendsSet(prevSet => {
+      const newSet = new Set(prevSet);
+      newSet.delete(item);
+      return newSet;
+    });
+  };
+    useEffect(()=>{
+        setIsLoading(true);
+        setIsLoading(true)
+        const getMyFriends = async()=>{
+            const res = await axios.post(
+                import.meta.env.VITE_BACKEND_URL + "/myfriends",
+                {
+                  user_id: authData.id,
+                }
+            );
+            const data = res.data;
+            setAllFriends(data.friends)
+            setIsLoading(false)
+        }
+        try {
+            getMyFriends()
+        } catch (error) {
+            console.log(error)
+        }
+        finally{
+            setIsLoading(false)
+        }
+    },[])
   useEffect(() => {
     setIsLoading(true);
     const getContent = async () => {
@@ -69,13 +115,73 @@ export default function BlogPage() {
       setVoteCount(votecount - 1);
     }
   } 
+  const handelShare = async() =>{
+      try {
+        const res = await axios.post(
+          import.meta.env.VITE_BACKEND_URL + "/share",
+          {
+            blog_id:bid,
+            users:[...friendsSet]
+          }
+      );
+      alert('Done')
+      navigate('/blogs')
+      } catch (error) {
+        console.log(error)
+      }
+  }
 
   const date = new Date(rows["publishedAt"]);
 
   return (
     <>
-      <div className="px-4 py-6 md:px-6 md:py-12 lg:py-16 lg:w-3/5 mx-auto">
+      <div className=" py-6 md:py-12 lg:py-16 lg:w-4/5 mx-auto">
         <Button onClick={()=>navigate(-1)} className=" my-6">{"< Go Back "}</Button>
+        <div className="flex">
+                <div className="py-10 flex-col">
+                <Button onClick={(e)=>{e.preventdefault;handelShare()}} className=" p-5 m-3 grow">{"Share"}</Button>
+                <div className="grow m-3 p-5">
+                                    Added Friends
+                                    <div>
+                                        {
+                                            Array.from(friendsSet).map((e,i)=>{
+                                                return(
+                                                    <div key={`Added${i}`}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
+                                                    <Button onClick={(er)=>{er.preventdefault;handleRemove(e)}}>Remove</Button>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                                <div className="grow m-3 p-5">
+                                    Search for Friends
+                                    <input type="text" ref={usernameref} className="flex w-full rounded-md 
+                                    border-input bg-background px-3 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+                                    placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+                                    disabled:cursor-not-allowed disabled:opacity-50 text-lg 
+                                    font-normal tracking-tight border-0 box-shadow-none h-auto" id="title" placeholder="Friends Username"/>
+                                    <Button onClick={(er)=>{er.preventdefault;handelSearch()}}>Search</Button>
+                                    <div>
+                                    {   
+                                        allfriends.length!==0?
+                                        allfriends.map((e,i)=>{
+                                            if(friendsSet.has(e) || !e.username.includes(searchVal))
+                                                return(<></>)
+                                            
+                                            return(
+                                                
+                                                <div key={i}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
+                                                <Button onClick={(er)=>{er.preventdefault;handleAdd(e)}}>Add</Button>
+                                                </div>
+                                            )
+                                        }):"No Results"
+                                    }
+                                    </div>
+                                </div>
+                                
+                            </div>
+        <div>                  
         <div className="space-y-2">
           <h1 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
             {rows["title"]}
@@ -102,6 +208,8 @@ export default function BlogPage() {
             </div>
         </div>
       </div>
+      </div>
+      </div>  
     </>
   );
 }

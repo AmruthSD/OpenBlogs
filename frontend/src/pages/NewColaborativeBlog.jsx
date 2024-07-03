@@ -49,12 +49,6 @@ export default function NewColaborativeBLog(){
             alert("Title should be atleast 5 characters");
             return
         }
-        console.log({
-            user_id: authData.id,
-            title: title,
-            cofriends:[...friendsSet,{username:authData.username,id:authData.id}],
-            tags:addingtag
-          })
           try {
             const res = await axios.post(
                 import.meta.env.VITE_BACKEND_URL + "/createcolab",

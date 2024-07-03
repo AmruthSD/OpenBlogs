@@ -15,6 +15,7 @@ import { checkVote,upvote,downvote,getVotes,undownvote,unupvote } from './contro
 import { DeleteBlog, DeleteCollabBlog } from './controllers/deleteController.js'
 import { AcceptRequest, FriendsData, OnlyMyFriendsData, RemoveRequest, SearchForFriend, SendRequest } from './controllers/friendsController.js'
 import { NewCollabBlog } from './controllers/newCollabBlogController.js'
+import { ShareBlogs } from './controllers/shareBlogController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -161,7 +162,10 @@ app.post("/friends/acceptReq",async(req,res)=>{
 app.post('/myfriends',async(req,res)=>{
     await OnlyMyFriendsData(connection,req,res);
 })
-
+/*******************Sharing***************************/ 
+app.post('/share',async(req,res)=>{
+    await ShareBlogs(connection,req,res);
+})
 
 /*******************Collab Blogs*********************/
 app.post("/createcolab",async(req,res)=>{

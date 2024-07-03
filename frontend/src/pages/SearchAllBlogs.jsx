@@ -17,6 +17,7 @@ export default function SearchForBlogs(){
     const setIsLoading = useLoadStateStore((state) => state.setIsLoading);
     const [blogs, setBlogs] = useState([]);
     const [followerBlogs, setFollowerBlogs] = useState([]);
+    const [sharedBlogs, setSharedBlogs] = useState([]);
     useEffect(()=>{
         setSearch123(addingtag)
         // console.log(addingtag,"hello")
@@ -24,17 +25,17 @@ export default function SearchForBlogs(){
         if(addingtag.length===0){
             getPublicBlogsWithNoTags(authdata , setIsLoading).then((blogs) => {
                 setBlogs(blogs);
-                console.log('amruth',blogs)
+                //console.log('amruth',blogs)
                 setLoading(false)
             });
             getPublicBlogsWithNoTagsAndFollows(authdata,setIsLoading).then((blogs)=>{
-                console.log('aahil',blogs);
+                //console.log('aahil',blogs);
                 setFollowerBlogs(blogs)
                 setLoading(false)
             });
         }
         else{
-            console.log("hello",addingtag)
+            //console.log("hello",addingtag)
             getPublicBlogsWithTags(authdata,setIsLoading,addingtag).then((blogs)=>{
                 setBlogs(blogs)
                 setLoading(false)
@@ -63,6 +64,7 @@ export default function SearchForBlogs(){
             <TabsList className="flex gap-4 overflow-auto pb-2 border-b-0">
               <TabsTrigger value="feed">Feed</TabsTrigger>
               <TabsTrigger value="for-you">For You</TabsTrigger>
+              <TabsTrigger value="shared-with-me">Shared With Me</TabsTrigger>
             </TabsList>
                 <div className="pb-3">
                     {addingtag.length===0?<h3 className="text-4xl font-bold pb-4 mt-4">Recently Added</h3>
@@ -82,9 +84,14 @@ export default function SearchForBlogs(){
               {/* FOLLOWING ONLY BLOGS */}
               {followerBlogs.map((blog)=>{return<BlogCard key={blog.id} blog={blog} />})}   
             </TabsContent>
+            <TabsContent value="shared-with-me">
+              {/* FOLLOWING ONLY BLOGS */}
+              {followerBlogs.map((blog)=>{return<BlogCard key={blog.id} blog={blog} />})}   
+            </TabsContent>
           </Tabs>
-            
+          
         </div>
+        
     </div>)
 }
 
@@ -116,3 +123,4 @@ async function getPublicBlogsWithTagsAndFollows(authdata,setLoading,addingtag){
     // console.log(response.data.rows,tags1);
     return response.data.rows;
 }
+

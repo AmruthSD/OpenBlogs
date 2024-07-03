@@ -21,3 +21,13 @@ export async function getAllWriterBlogs(connection, writerId) {
         ON b.user_id = u.id AND u.id = ${writerId}
     `)
 }
+
+export async function shareBlog(connection,user_id,blog_id){
+    return await connection.query(
+        `INSERT INTO shared (user_id, blog_id, sentAt)
+        VALUES (${user_id}, ${blog_id}, CURRENT_TIMESTAMP)
+        ON DUPLICATE KEY UPDATE sentAt = CURRENT_TIMESTAMP;
+        `
+    )
+}
+

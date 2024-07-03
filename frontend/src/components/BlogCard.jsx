@@ -1,27 +1,8 @@
 import { Link } from "react-router-dom";
 import { CardContent, Card } from "@/components/ui/card";
 import RemoveMarkdown from "remove-markdown";
+import {useState,useEffect,useContext} from 'react'
 
-/*
-content
-: 
-"this is my Fukuma misutshiLorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit officia reprehenderit impedit dicta ratione incidunt nisi, quas possimus hic ullam, ea deserunt libero dolores! Id recusandae expedita, aut omnis delectus, numquam reprehenderit similique iure aliquid dicta provident maiores! Nihil cumque praesentium nesciunt delectus, dolorem, est eius suscipit soluta dolor ipsa, optio accusamus tenetur perferendis inventore aliquid debitis ad dolore quia illo expedita ratione iste sequi qui assumenda! Modi, consectetur?"
-id
-: 
-1
-publishedAt
-: 
-"2024-03-18T11:06:06.000Z"
-title
-: 
-"How to write SQL code like a Pro"
-user_id
-: 
-2
-username
-: 
-"Zenin"
-*/
 
 export default function BlogCard({ blog }) {
   return (
