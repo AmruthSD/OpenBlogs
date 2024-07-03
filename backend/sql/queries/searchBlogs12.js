@@ -87,3 +87,41 @@ export async function blogsNoTagsWithFollowsSQL(connection, userId) {
         [userId, userId]
     );
 }
+
+
+export async function blogsNoTagsWithShare(connection, userId) {
+    return await connection.query(
+        `
+        SELECT b.*, u.username AS username,s.sentAt as sentAt,
+        (SELECT COUNT(*) FROM upvotes WHERE blog_id = b.id) -
+        (SELECT COUNT(*) FROM downvotes WHERE blog_id = b.id) AS net_votes
+        FROM blogs b
+        JOIN users u ON u.id = b.user_id
+        JOIN shared s ON s.user_id = ? AND s.blog_id = b.id
+        WHERE b.isPublic = 1
+        ORDER BY s.sentAt DESC
+        `,
+        [userId]
+    );
+}
+export async function blogsWithTagsAndShare(connection, tags, userId) {
+    return await connection.query(
+        `WITH ids AS (
+            SELECT DISTINCT b1.id
+            FROM blogs b1, blog_tags t1
+            WHERE t1.blog_id = b1.id
+            AND t1.tag_id IN (?)
+        )
+        SELECT b.*, u.username AS username,s.sentAt as sentAt,
+        (SELECT COUNT(*) FROM upvotes WHERE blog_id = b.id) -
+        (SELECT COUNT(*) FROM downvotes WHERE blog_id = b.id) AS net_votes
+        FROM blogs b
+        JOIN users u ON u.id = b.user_id
+        JOIN ids i ON i.id = b.id
+       JOIN shared s ON s.user_id = ? AND s.blog_id = b.id
+        WHERE b.isPublic = 1
+        ORDER BY s.sentAt DESC
+        `,
+        [tags, userId]
+    );
+}

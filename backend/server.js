@@ -9,7 +9,7 @@ import { userBlogs,indBlog,userCollabBlogs } from './controllers/dashboardContro
 import { createNewBlog ,getAllBlogs , getWritersBlogs } from './controllers/blogsController.js'
 import { allTags,addOneTag } from './controllers/tagControllers.js'
 import { getFollowerAndFollowingCount, getIsFollowing ,follow,unfollow} from './controllers/userControllers.js'
-import { BlogsNoTags,BlogsWithTags,BlogsWithTagsAndFollowers,BlogsNoTagsWithFollows } from './controllers/searchBlogsControllers.js'
+import { BlogsNoTags,BlogsWithTags,BlogsWithTagsAndFollowers,BlogsNoTagsWithFollows, BlogsNoTagsWithShare, BlogsWithTagsAndShare } from './controllers/searchBlogsControllers.js'
 import { NewBlog } from './controllers/newBlogController.js'
 import { checkVote,upvote,downvote,getVotes,undownvote,unupvote } from './controllers/votescontroller.js'
 import { DeleteBlog, DeleteCollabBlog } from './controllers/deleteController.js'
@@ -93,9 +93,7 @@ app.get('/blog/allblogs', async (req, res) => {
     await getAllBlogs(connection, req, res)
 })
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`)
-})
+
 
 /****************Search*******************/
 app.post('/noTags', async (req,res)=>{
@@ -104,7 +102,20 @@ app.post('/noTags', async (req,res)=>{
 app.post('/withTags', async (req,res)=>{
     await BlogsWithTags(connection,req,res)
 })
+app.post('/withTagsAndFollows', async (req,res)=>{
+    await BlogsWithTagsAndFollowers(connection,req,res)
+})
+app.post('/noTagsWithFollows', async (req,res)=>{
+    await BlogsNoTagsWithFollows(connection,req,res)
+})
+app.post('/withTagsAndShare', async (req,res)=>{
+    await BlogsWithTagsAndShare(connection,req,res)
+})
+app.post('/noTagsWithShare', async (req,res)=>{
+    await BlogsNoTagsWithShare(connection,req,res)
+})
 
+/**********************New Blog******************************/
 app.post('/NewBlog', async (req,res)=>{
     await NewBlog(connection,req,res)
 })
@@ -115,12 +126,7 @@ app.post('/DeleteBlog', async (req,res)=>{
 app.post('/DeleteCollabBlog', async (req,res)=>{
     await DeleteCollabBlog(connection,req,res)
 })
-app.post('/withTagsAndFollows', async (req,res)=>{
-    await BlogsWithTagsAndFollowers(connection,req,res)
-})
-app.post('/noTagsWithFollows', async (req,res)=>{
-    await BlogsNoTagsWithFollows(connection,req,res)
-})
+
 
 /********************* VOTES ************************/ 
 app.get('/votes/checkvote', async (req,res)=>{
@@ -170,4 +176,8 @@ app.post('/share',async(req,res)=>{
 /*******************Collab Blogs*********************/
 app.post("/createcolab",async(req,res)=>{
     await NewCollabBlog(connection,req,res);
+})
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
 })

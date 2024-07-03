@@ -33,6 +33,11 @@ export default function SearchForBlogs(){
                 setFollowerBlogs(blogs)
                 setLoading(false)
             });
+            getPublicBlogsWithNoTagsAndShared(authdata,setIsLoading).then((blogs)=>{
+                //console.log('aahil',blogs);
+                setSharedBlogs(blogs)
+                setLoading(false)
+            });
         }
         else{
             //console.log("hello",addingtag)
@@ -44,6 +49,11 @@ export default function SearchForBlogs(){
             getPublicBlogsWithTagsAndFollows(authdata,setIsLoading,addingtag).then((blogs)=>{
                 // console.log(blogs);
                 setFollowerBlogs(blogs)
+                setLoading(false)
+            })
+            getPublicBlogsWithTagsAndShared(authdata,setIsLoading,addingtag).then((blogs)=>{
+                // console.log(blogs);
+                setSharedBlogs(blogs)
                 setLoading(false)
             })
         }
@@ -86,7 +96,7 @@ export default function SearchForBlogs(){
             </TabsContent>
             <TabsContent value="shared-with-me">
               {/* FOLLOWING ONLY BLOGS */}
-              {followerBlogs.map((blog)=>{return<BlogCard key={blog.id} blog={blog} />})}   
+              {sharedBlogs.map((blog)=>{return<BlogCard key={blog.id} blog={blog} />})}   
             </TabsContent>
           </Tabs>
           
@@ -124,3 +134,18 @@ async function getPublicBlogsWithTagsAndFollows(authdata,setLoading,addingtag){
     return response.data.rows;
 }
 
+
+async function getPublicBlogsWithNoTagsAndShared(authdata,setLoading){
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/noTagsWithShare`,{userId:authdata.id});
+    // console.log(response.rows);
+    return response.data.rows;
+}
+
+async function getPublicBlogsWithTagsAndShared(authdata,setLoading,addingtag){
+    const tags1 = await Promise.all(addingtag.map(async (tag) => {
+        return tag.id; 
+    }));
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/withTagsAndShare`,{tags1,userId:authdata.id});
+    // console.log(response.data.rows,tags1);
+    return response.data.rows;
+}
