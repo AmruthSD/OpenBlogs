@@ -2,7 +2,18 @@ import 'dotenv/config'
 import express from 'express'
 import mysql from 'mysql2/promise'
 import cors from 'cors'
+import http from 'http'
+import {Server} from 'socket.io'
 const app = express()
+const server = http.createServer(app)
+const io = new Server(server,{
+    cors: {
+      origin: [process.env.FRONTEND_URL],
+      credentials: true,
+      methods: ["GET", "POST"],
+    }
+  });
+  
 const port = process.env.PORT || 5000
 import { signUpUser , loginUser ,getUserDetails, authmiddleware } from './controllers/userControllers.js'
 import { userBlogs,indBlog,userCollabBlogs } from './controllers/dashboardControllers.js'
@@ -178,6 +189,6 @@ app.post("/createcolab",async(req,res)=>{
     await NewCollabBlog(connection,req,res);
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
