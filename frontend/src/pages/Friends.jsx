@@ -136,28 +136,28 @@ export default function Friends(){
 
     return(
         <>
-            <div className="px-4 py-6 w-full flex">
-                <div className="grow">
-                    <div>My Friends</div>
-                    <div className="flex-col">
+            <div className="px-4 py-6 w-full flex ml-32">
+                <div className="grow flex-col justify-center items-center">
+                    <div className="text-center text-3xl p-10 font-bold">My Friends</div>
+                    <div className="flex-col text-center space-y-5">
                         {   friends.length!==0?
                             friends.map((e,i)=>{
                                 return(
-                                    <div><Link to={`/writers/${e.id}`} key={e.id}>{e.username}</Link></div>
+                                    <div className="font-medium text-xl"><Link to={`/writers/${e.id}`} key={e.id}>{e.username}</Link></div>
                                 )
                             }):"You Dont Have Any Friends"
                         }
                     </div>
                 </div>
-                <div className="grow flex-col">
+                <div className="grow flex-col ">
                     <div className="">
-                        <div>My Requests</div>
+                        <div className="text-2xl p-5 font-bold">My Requests</div>
                         <div className="flex-col">
                         {   
                             myRequests.length!==0?
                             myRequests.map((e,i)=>{
                                 return(
-                                    <div><Link to={`/writers/${e.id}`} key={e.id}>{e.username}</Link>
+                                    <div className="flex space-x-3 m-3 "><Link to={`/writers/${e.id}`} key={e.id}>{e.username}</Link>
                                     <Button onClick={(er)=>{er.preventdefault;handelRemove(authData.id,e.id)}}>Remove</Button>
                                     </div>
                                 )
@@ -166,13 +166,13 @@ export default function Friends(){
                         </div>
                     </div>
                     <div className="">
-                        <div>Requests</div>
+                        <div className="text-2xl p-5 font-bold">Requests</div>
                         <div className="flex-col">
                         {   
                             requests.length!==0?
                             requests.map((e,i)=>{
                                 return(
-                                    <div><Link to={`/writers/${e.id}`} key={e.id}>{e.username}</Link>
+                                    <div className="flex space-x-3 m-3 "><Link to={`/writers/${e.id}`} key={e.id}>{e.username}</Link>
                                     <Button onClick={(er)=>{er.preventdefault;handelRemove(e.id,authData.id)}}>Reject</Button>
                                     <Button onClick={(er)=>{er.preventdefault;handelAccept(e.id,authData.id)}}>Accept</Button>
                                     </div>
@@ -182,15 +182,17 @@ export default function Friends(){
                         </div>
                     </div>
                     <div>
-                        <div>Add New Friends</div>
-                        <Input ref={usernameRef} placeholder="username" required type="text" />
+                        <div className="text-2xl p-5 font-bold">Add New Friends</div>
+                        <div className="flex space-x-4 p-5">
+                        <Input ref={usernameRef} placeholder="username" className='w-1/3' required type="text" />
                         <Button onClick={(e)=>{e.preventdefault;handelSearch()}} >Search</Button>
+                        </div>
                         <div>
                             {   
                                 searchResults.length!==0?
                                 searchResults.map((e,i)=>{
                                     return(
-                                        <div><Link to={`/writers/${e.id}`} key={e.id}>{e.username}</Link>
+                                        <div className="flex space-x-3 m-3 "><Link to={`/writers/${e.id}`} key={e.id}>{e.username}</Link>
                                         <Button onClick={(err)=>{err.preventdefault;handelAdd(e.id)}}>Send</Button>
                                         </div>
                                     )
