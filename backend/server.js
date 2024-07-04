@@ -27,7 +27,7 @@ import { DeleteBlog, DeleteCollabBlog } from './controllers/deleteController.js'
 import { AcceptRequest, FriendsData, OnlyMyFriendsData, RemoveRequest, SearchForFriend, SendRequest } from './controllers/friendsController.js'
 import { NewCollabBlog } from './controllers/newCollabBlogController.js'
 import { ShareBlogs } from './controllers/shareBlogController.js'
-import { JoinAUser, SaveDoc } from './controllers/socketController.js'
+import { JoinAUser, SaveDoc, convertBlog } from './controllers/socketController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -188,6 +188,9 @@ app.post('/share',async(req,res)=>{
 /*******************Collab Blogs*********************/
 app.post("/createcolab",async(req,res)=>{
     await NewCollabBlog(connection,req,res);
+})
+app.post("/fromCollabToBlog",async(req,res)=>{
+    await convertBlog(connection,req,res);
 })
 
 

@@ -6,6 +6,8 @@ import { useParams,useNavigate, json } from "react-router-dom";
 import useAuthStore from "../zustand/authStore";
 import useLoadStateStore from "@/zustand/loadStateStore";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+
 
 export default function CollabBlogPage(){
     const navigate = useNavigate()
@@ -101,8 +103,23 @@ export default function CollabBlogPage(){
     },[socket,quill,hasContent])
 
     const handelPublish = async() =>{
-        const delta  = quill.getSemanticHTML();
-        console.log(delta)
+        const htmlFromOfQuill  = quill.getSemanticHTML();
+        try {
+            const res = await axios.post(
+                import.meta.env.VITE_BACKEND_URL + "/fromCollabToBlog",
+                {
+                  blog_id: id,
+                  html:htmlFromOfQuill,
+                  title: title,
+                  user_id : authData.id,
+                  isPublic: true
+                }
+            );
+            alert('Done')
+            navigate('/dashboard')
+          } catch (error) {
+            console.log(error)
+          }
         
     }
 

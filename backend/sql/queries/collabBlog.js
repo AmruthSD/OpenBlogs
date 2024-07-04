@@ -22,3 +22,36 @@ export async function updateDoc(connection,blog_id,content){
         `,[x.y]
     )
 }
+
+export async function getCollabTags(connection,blog_id){
+    return await connection.query(
+        `
+            select *from collabblog_tags where blog_id = ${blog_id};
+        `
+    )
+}
+
+
+export async function deleteCollabTags(connection,blog_id){
+    return await connection.query(
+        `
+            delete from collabblog_tags where blog_id = ${blog_id};
+        `
+    )
+}
+
+export async function deleteCollabUsers(connection,blog_id){
+    return await connection.query(
+        `
+            delete from collabblog_users where blog_id = ${blog_id};
+        `
+    )
+}
+
+export async function deleteCollabBlog(connection,blog_id){
+    return await connection.query(
+        `
+            delete from collabblogs where id = ${blog_id};
+        `
+    )
+}

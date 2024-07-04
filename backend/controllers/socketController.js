@@ -1,4 +1,6 @@
-import { checkIfUserHasAcces, getCollabBlogData, updateDoc } from "../sql/queries/collabBlog.js";
+import { checkIfUserHasAcces, deleteCollabBlog, deleteCollabTags, deleteCollabUsers, getCollabBlogData, getCollabTags, updateDoc } from "../sql/queries/collabBlog.js";
+import TurndownService from 'turndown'
+import { addTagsNewBlog, createBlog, getNewBlog } from "../sql/queries/newBlog1.js";
 
 export async function JoinAUser(connection,socket,data){
     const {id,user_id} = data;
@@ -47,4 +49,32 @@ export async function SaveDoc(connection,socket,data){
     } catch (error) {
         console.log(error)
     }
+}
+
+
+async function tagsAdder(connection,row,tags1){
+    const result = []
+    for(const tag of tags1){
+        const [rows123 , fields] = await addTagsNewBlog(connection, row.id,tag.tag_id)
+    }
+}
+
+export async function convertBlog(connection,req,res){
+    const {html,blog_id,title,user_id,isPublic} = req.body;
+    try {
+        const turndownService = new TurndownService();
+        const markdown = turndownService.turndown(html)
+        const [tags,f] = await getCollabTags(connection,blog_id)
+        await deleteCollabTags(connection,blog_id)
+        await deleteCollabUsers(connection,blog_id)
+        await deleteCollabBlog(connection,blog_id)
+        const [rows , fields] = await createBlog(connection, user_id, title,markdown,isPublic)
+        const [rows1 , fields1] = await getNewBlog(connection, user_id, title,markdown,isPublic)
+        await tagsAdder(connection,rows1[0],tags)   
+        res.status(200).json({result : "Done"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message : 'Internal Server Error'})
+    }
+    
 }
