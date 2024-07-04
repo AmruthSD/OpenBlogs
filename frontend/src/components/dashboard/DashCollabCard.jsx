@@ -32,7 +32,6 @@ export default function DashCollabBlogCard({ blog }) {
       <div className="space-y-2">
         <h2 className="text-2xl font-bold tracking-tight">{blog.title}</h2>
       </div>
-      <p>{RemoveMarkdown(blog.content + '...')}</p>
       <div className="mt-4">
         <Link className="text-base font-medium underline" to={`/collabblog/${blog.id}`}>
           Open and Complete Work

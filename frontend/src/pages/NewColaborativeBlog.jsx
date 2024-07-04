@@ -129,7 +129,7 @@ export default function NewColaborativeBLog(){
                             </div>
                             <div className="m-5 flex w-full">
                                 <div className="grow m-3">
-                                    Search for Friends
+                                    <span className="font-semibold text-lg">Search for Friends</span>
                                     <input type="text" ref={usernameref} className="flex w-full rounded-md 
                                     border-input bg-background px-3 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
                                     placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
@@ -145,7 +145,7 @@ export default function NewColaborativeBLog(){
                                             
                                             return(
                                                 
-                                                <div key={i}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
+                                                <div className="flex space-x-3 m-2 " key={i}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
                                                 <Button onClick={(er)=>{er.preventdefault;handleAdd(e)}}>Add</Button>
                                                 </div>
                                             )
@@ -154,12 +154,12 @@ export default function NewColaborativeBLog(){
                                     </div>
                                 </div>
                                 <div className="grow m-3">
-                                    Added Friends
+                                <span className="font-semibold text-lg">Added Friends</span>
                                     <div>
                                         {
                                             Array.from(friendsSet).map((e,i)=>{
                                                 return(
-                                                    <div key={`Added${i}`}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
+                                                    <div className="flex space-x-3 m-2 " key={`Added${i}`}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
                                                     <Button onClick={(er)=>{er.preventdefault;handleRemove(e)}}>Remove</Button>
                                                     </div>
                                                 )

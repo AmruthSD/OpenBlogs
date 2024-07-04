@@ -139,15 +139,15 @@ const handleAdd = (e) => {
         <Button onClick={()=>navigate(-1)} className=" my-6">{"< Go Back "}</Button>
         <div className="flex">
                 <div className="py-10 flex-col">
-                <Button onClick={(e)=>{e.preventdefault;handelShare()}} className=" p-5 m-3 grow">{"Share"}</Button>
+                <Button onClick={(e)=>{e.preventdefault;handelShare()}} className=" p-5 m-3 grow bg-black">{"Share"}</Button>
                 <div className="grow m-3 p-5">
-                                    Added Friends
+                                    <div className="p-3 text-lg font-semibold">Added Friends</div>
                                     <div>
                                         {
                                             Array.from(friendsSet).map((e,i)=>{
                                                 return(
-                                                    <div key={`Added${i}`}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
-                                                    <Button onClick={(er)=>{er.preventdefault;handleRemove(e)}}>Remove</Button>
+                                                    <div className="flex space-x-3 m-2 " key={`Added${i}`}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
+                                                    <Button onClick={(er)=>{er.preventdefault;handleRemove(e)}} className="bg-black">Remove</Button>
                                                     </div>
                                                 )
                                             })
@@ -155,13 +155,13 @@ const handleAdd = (e) => {
                                     </div>
                                 </div>
                                 <div className="grow m-3 p-5">
-                                    Search for Friends
+                                <div className="p-3 text-lg font-semibold">Search for Friends</div>
                                     <input type="text" ref={usernameref} className="flex w-full rounded-md 
                                     border-input bg-background px-3 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
                                     placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
                                     disabled:cursor-not-allowed disabled:opacity-50 text-lg 
                                     font-normal tracking-tight border-0 box-shadow-none h-auto" id="title" placeholder="Friends Username"/>
-                                    <Button onClick={(er)=>{er.preventdefault;handelSearch()}}>Search</Button>
+                                    <Button onClick={(er)=>{er.preventdefault;handelSearch()}} className="bg-black">Search</Button>
                                     <div>
                                     {   
                                         allfriends.length!==0?
@@ -171,8 +171,8 @@ const handleAdd = (e) => {
                                             
                                             return(
                                                 
-                                                <div key={i}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
-                                                <Button onClick={(er)=>{er.preventdefault;handleAdd(e)}}>Add</Button>
+                                                <div className="flex space-x-3 m-2 " key={i}><Link to={`/writers/${e.id}`} key={e.id} className=" no-underline">{e.username}</Link>
+                                                <Button onClick={(er)=>{er.preventdefault;handleAdd(e)}} className="bg-black">Add</Button>
                                                 </div>
                                             )
                                         }):"No Results"
