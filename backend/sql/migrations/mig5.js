@@ -19,5 +19,15 @@ await connection.query(`
     )
 `)
 
+await connection.query(`
+    ALTER TABLE collabblogs ADD content1 json;
+
+UPDATE collabblogs SET content1 = content;
+
+ALTER TABLE collabblogs DROP COLUMN content;
+
+ALTER TABLE collabblogs RENAME COLUMN content1 TO content;
+`)
+
 
 await connection.end()

@@ -6,14 +6,14 @@ import http from 'http'
 import {Server} from 'socket.io'
 const app = express()
 const server = http.createServer(app)
-const io = new Server(server,{
+export const io = new Server(server,{
     cors: {
       origin: [process.env.FRONTEND_URL],
       credentials: true,
       methods: ["GET", "POST"],
     }
   });
-  
+
 const port = process.env.PORT || 5000
 import { signUpUser , loginUser ,getUserDetails, authmiddleware } from './controllers/userControllers.js'
 import { userBlogs,indBlog,userCollabBlogs } from './controllers/dashboardControllers.js'
@@ -27,6 +27,7 @@ import { DeleteBlog, DeleteCollabBlog } from './controllers/deleteController.js'
 import { AcceptRequest, FriendsData, OnlyMyFriendsData, RemoveRequest, SearchForFriend, SendRequest } from './controllers/friendsController.js'
 import { NewCollabBlog } from './controllers/newCollabBlogController.js'
 import { ShareBlogs } from './controllers/shareBlogController.js'
+import { JoinAUser, SaveDoc } from './controllers/socketController.js'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -188,6 +189,38 @@ app.post('/share',async(req,res)=>{
 app.post("/createcolab",async(req,res)=>{
     await NewCollabBlog(connection,req,res);
 })
+
+
+/********************Socket io*********************/
+io.on('connection',socket=>{
+    socket.on('joinRoom',async (data)=>{
+        await JoinAUser(connection,socket,data)
+    })
+    socket.on('changes',(data)=>{
+        socket.broadcast.to(data.id).emit('merge',data.delta)
+    });
+    socket.on('save-doc',async (data)=>{
+        //console.log(data.content)
+        SaveDoc(connection,socket,data)
+    });
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`)
